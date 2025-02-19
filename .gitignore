@@ -199,16 +199,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# React/TypeScript specific
-dist/
-build/
-*.tsbuildinfo
-*.ts
-*.tsx
-*.js
-*.jsx
-*.map
-.eslintcache
+
 
 # Miscellaneous
 *.tmp
