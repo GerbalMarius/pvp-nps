@@ -1,9 +1,14 @@
-﻿namespace nps.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace nps.Models
 {
     public class UserInfo
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+		[Required]
+		public string Email { get; set; }
+		[Required]
+		[DataType(DataType.Password)]
+		public string Password { get; set; }
 
         public UserInfo()
         {
