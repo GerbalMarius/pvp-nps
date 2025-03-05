@@ -30,7 +30,7 @@ header{
 footer {
     background: linear-gradient(90deg, #37a388, #32CD32);
     margin-top: 9rem;
-    color: white;
+    color: white !important;
     text-align: left;
     padding: 35px;
     font-size: 1rem;
