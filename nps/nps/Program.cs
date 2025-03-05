@@ -17,7 +17,6 @@ public class Program
             options.Cookie.IsEssential = true;
         });
         
-        //
 
         var app = builder.Build();
         

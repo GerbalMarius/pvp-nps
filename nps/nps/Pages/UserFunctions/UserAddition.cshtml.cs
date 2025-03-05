@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using nps.Models;
 
-namespace nps.Pages.AddUser
+namespace nps.Pages.UserFunctions
 {
     public class UserAdditionModel : PageModel
     {
