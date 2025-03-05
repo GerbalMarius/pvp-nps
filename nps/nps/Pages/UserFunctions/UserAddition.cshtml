@@ -5,9 +5,7 @@
 }
 
 <head>
-    <!--Nereikia fonto linku, jie yra css faile :) -->
-    <!-- Kode nenaudojam form-styles.css sitaip stengiaus (●'◡'●)-->
-    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css"/>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -16,12 +14,6 @@
 
 <div class="text-center">
     <h1 class="display-5" style="margin-bottom:20px;">User addition to the NPS system</h1>
-    <!--Better practise would be to utilise html element helpers provided by @Html property , functionality remains the same,
-    but it allows for better handling of input data-->
-    <!-- using (//Html.BeginForm(FormMethod.Post, new{class = "form-class"}))
-         {
-         
-         } -->
     <form method="post" style="width:50%; margin:auto; text-align:left; padding:20px; border: solid 3px #32CD32; border-radius:10px;">
         
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" asp-for="UserInfo.Email" required>
