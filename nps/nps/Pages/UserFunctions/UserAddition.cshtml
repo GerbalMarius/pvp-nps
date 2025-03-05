@@ -3,23 +3,22 @@
 @{
 	ViewData["Title"] = "User addition page";
 }
-
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
 </head>
 
 <div class="text-center">
-    <h1 class="display-5" style="margin-bottom:20px;">User addition to the NPS system</h1>
-    <form method="post" style="width:50%; margin:auto; text-align:left; padding:20px; border: solid 3px #32CD32; border-radius:10px;">
-        
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" asp-for="UserInfo.Email" required>
-        <div id="emailHelp" class="form-text">Input the person's company email'</div>
+    <form method="post" class="login-form">
+        <h2 class="login-title text-center">Employee registration</h2>
 
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" style="margin-top:20px; margin-bottom: 20px" asp-for="UserInfo.Password" required>
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
 
-        <button class="btn btn-outline-success me-2" type="submit" style="font-weight: 700;">Submit</button>
+        <input type="text" asp-for="UserInfo.Email" aria-describedby="emailHelp" class="form-control" placeholder="Input the employee's company email" />
+
+        <input type="password" asp-for="UserInfo.Password" class="form-control" placeholder="Input the employee's password" />
+
+        <button type="submit" class="login-btn">Register</button>
+
     </form>
 
     <table class="table table-striped table-hover table-bordered" style="width:50%; margin:auto; margin-top:20px; ">
