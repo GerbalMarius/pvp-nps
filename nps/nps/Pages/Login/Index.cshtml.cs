@@ -13,6 +13,10 @@ namespace nps.Pages.Login
         public required UserInfo UserInfo { get; set; }
         public IActionResult OnPost()
         {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
 			return RedirectToPage("/Index");
 		}
     }
