@@ -75,6 +75,7 @@
 .brand-form textarea:focus,
 .brand-form select:focus{
     background: linear-gradient(90deg, #2c8a6f, #2aaf2a);
+    color: var(--white-variant);
     border: 2px var(--white-variant);
     transform: scale(1.02);
 }
@@ -208,7 +209,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border: 2px solid var(--turqoise-green);
     border-radius: 8px;
     background: linear-gradient(90deg, #37a388, #32CD32);
-    color: var(--white-variant);
+    color: var(--white-variant) !important;
     font-weight: 700;
     outline: none;
     transition: all 0.3s ease-in-out;
@@ -221,6 +222,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .login-form input:focus{
     background: linear-gradient(90deg, #2c8a6f, #2aaf2a);
+    color: var(--white-variant);
     transform: scale(1.02);
 }
 
