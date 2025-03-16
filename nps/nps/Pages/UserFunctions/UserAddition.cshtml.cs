@@ -7,9 +7,9 @@ namespace nps.Pages.UserFunctions
     public class UserAdditionModel : PageModel
     {
         [BindProperty]
-        public UserInfo UserInfo { get; set; }
+        public LoginInfo LoginInfo { get; set; }
         
-        public List<UserInfo> UserInfoList = new List<UserInfo>();  
+        public List<LoginInfo> UserInfoList = new List<LoginInfo>();  
         
         public void OnGet()
         {
@@ -22,7 +22,7 @@ namespace nps.Pages.UserFunctions
                 return Page();
             }
 
-            UserInfoList.Add(new UserInfo { Email = UserInfo.Email, Password = UserInfo.Password });
+            UserInfoList.Add(new LoginInfo { Email = LoginInfo.Email, Password = LoginInfo.Password });
 
             return Page();
         }
