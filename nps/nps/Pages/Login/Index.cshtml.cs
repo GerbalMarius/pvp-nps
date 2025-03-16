@@ -10,7 +10,7 @@ namespace nps.Pages.Login
     {
 		[BindProperty]
 
-        public required UserInfo UserInfo { get; set; }
+        public required LoginInfo LoginInfo { get; set; }
         public IActionResult OnPost()
         {
             if(!ModelState.IsValid)
