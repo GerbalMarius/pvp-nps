@@ -18,6 +18,7 @@ namespace nps.Pages.Login
 		{
 			_httpContextAccessor = httpContextAccessor;
 		}
+
 		[BindProperty]
 
 		public required LoginInfo LoginInfo { get; set; }
