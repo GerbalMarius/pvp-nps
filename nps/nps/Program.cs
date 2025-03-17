@@ -12,6 +12,8 @@ public class Program
 
         builder.Services.AddRazorPages();
         //Note: additional config for sessions
+        
+        builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromMinutes(30d);
