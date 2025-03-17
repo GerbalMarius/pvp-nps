@@ -15,6 +15,16 @@ namespace nps.Pages.Login
 	{
 		private readonly IHttpContextAccessor _httpContextAccessor;
 
+        public required LoginInfo LoginInfo { get; set; }
+        public IActionResult OnPost()
+        {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
+			return RedirectToPage("/Index");
+		}
+    }
 		public IndexModel(IHttpContextAccessor httpContextAccessor)
 		{
 			_httpContextAccessor = httpContextAccessor;

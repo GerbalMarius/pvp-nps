@@ -33,7 +33,9 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-page="/UserFunctions/UserAddition">Employee registration</a>
 						</li>
-
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-page="/Nps/NpsShortQuiz">NPS quiz</a>
+						</li>
 					</ul>
 
 					@if (User.Identity != null && User.Identity.IsAuthenticated)
@@ -52,11 +54,11 @@
 	</header>
 	<div class="container">
 		<main role="main" class="pb-3">
-			@RenderBody()
+            @RenderBody()
 		</main>
 	</div>
 
-	<footer class="border-top footer text-muted" style="padding:2px">
+	<footer class="border-top footer text-muted" style="color: #ffffff !important; padding: 2px">
 		<div class="container">
 			&copy; @DateTime.Now.Year - MDDG
 		</div>
