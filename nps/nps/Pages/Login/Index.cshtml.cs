@@ -14,25 +14,13 @@ namespace nps.Pages.Login
 	public class IndexModel : PageModel
 	{
 		private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public required LoginInfo LoginInfo { get; set; }
-        public IActionResult OnPost()
-        {
-            if(!ModelState.IsValid)
-            {
-                return Page();
-            }
-			return RedirectToPage("/Index");
-		}
-    }
 		public IndexModel(IHttpContextAccessor httpContextAccessor)
 		{
 			_httpContextAccessor = httpContextAccessor;
 		}
-
 		[BindProperty]
-		public required UserInfo UserInfo { get; set; }
 
+		public required LoginInfo LoginInfo { get; set; }
 		public async Task<IActionResult> OnPostAsync()
 		{
 			if (!ModelState.IsValid)
@@ -41,15 +29,15 @@ namespace nps.Pages.Login
 			}
 
 			// Note : Sutvarkyti pilnai kai bus db
-			if (UserInfo.Email == "admin@gmail.com" && UserInfo.Password == "password123!") 
+			if (LoginInfo.Email == "admin@gmail.com" && LoginInfo.Password == "password123!")
 			{
-				var userId = "12345"; 
+				var userId = "12345";
 
 				var claims = new List<Claim>
 				{
-					new Claim(ClaimTypes.Name, UserInfo.Email),
+					new Claim(ClaimTypes.Name, LoginInfo.Email),
 					new Claim("UserId", userId)
-                };
+				};
 
 				var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 				var authProperties = new AuthenticationProperties
@@ -66,7 +54,7 @@ namespace nps.Pages.Login
 
 				_httpContextAccessor.HttpContext?.Session.SetString("UserId", userId);
 
-	
+
 				return RedirectToPage("/Index");
 			}
 
