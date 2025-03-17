@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Globalization;
 
 namespace nps;
@@ -9,16 +10,31 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddRazorPages();
-        //Note: additional config for sessions
-        builder.Services.AddSession(options =>
+		//Note: additional config for sessions
+
+		builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) // "Cookies"
+				.AddCookie(options =>
+				{
+					options.LoginPath = "/Login/Index";  
+					options.AccessDeniedPath = "/Login/Index";
+					options.Cookie.Name = "AuthCookie"; 
+					options.ExpireTimeSpan = TimeSpan.FromMinutes(30); 
+					options.SlidingExpiration = true;
+				});
+
+		builder.Services.AddAuthorization();
+		builder.Services.AddDistributedMemoryCache();
+
+		builder.Services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromMinutes(30d);
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
         });
-        
 
-        var app = builder.Build();
+		builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+		var app = builder.Build();
         
         
 
@@ -28,17 +44,17 @@ public class Program
             
             app.UseHsts();
         }
-        app.UseSession();//enabling usage of session store.
+        app.UseSession();
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
         app.UseRouting();
+		app.UseAuthentication();
+		app.UseAuthorization();
+		app.UseSession();
 
-        app.UseAuthorization();
-
-        app.MapRazorPages();
-
+		app.MapRazorPages();
         app.Run();
     }
 }
