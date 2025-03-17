@@ -8,7 +8,6 @@ namespace nps.Pages.Logout
 	{
 		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		// ? FIX: Constructor should match the class name (not `_logoutModel`)
 		public IndexModel(IHttpContextAccessor httpContextAccessor)
 		{
 			_httpContextAccessor = httpContextAccessor;
@@ -16,17 +15,16 @@ namespace nps.Pages.Logout
 
 		public async Task<IActionResult> OnGetAsync()
 		{
-			// ? FIX: Ensure HttpContext is not null
+
 			if (_httpContextAccessor.HttpContext != null)
 			{
-				// Remove authentication data
+
 				await _httpContextAccessor.HttpContext.SignOutAsync();
 
-				// Clear session
 				_httpContextAccessor.HttpContext.Session.Clear();
 			}
 
-			return RedirectToPage("/Login/Index"); // Redirect to login page
+			return RedirectToPage("/Login/Index");
 		}
 	}
 }
