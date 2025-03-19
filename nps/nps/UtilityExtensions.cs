@@ -5,14 +5,14 @@ using nps.Models.SurveyQuestions;
 
 namespace nps;
 
-public static class ModelBuilderExtensions
+public static class UtilityExtensions
 {
     public static void SetQuestionTypes(this DiscriminatorBuilder<int> discriminator)
     {
         discriminator
             .HasValue<RatingQuestion>((int)AnswerType.Rating)
             .HasValue<TextQuestion>((int)AnswerType.Text)
-            .HasValue<YesNoQuestion>((int)AnswerType.YesNo)
+            .HasValue<SingleChoiceQuestion>((int)AnswerType.SingleChoice)
             .HasValue<DropDownQuestion>((int)AnswerType.DropDownList);
     }
 }

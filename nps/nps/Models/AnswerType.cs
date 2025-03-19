@@ -4,6 +4,6 @@ public enum AnswerType
 {
     Rating = 1,
     Text,
-    YesNo,
+    SingleChoice,
     DropDownList
 }

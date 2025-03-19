@@ -13,6 +13,11 @@ public sealed class Survey
     [Column("survey_name")]
     [Required, MaxLength(100)]
     public string? Name { get; set; }
+    
+    [Column("order_id")]
+    public long OrderId { get; set; }
+
+    public Order Order { get; set; }
 
     public ICollection<Question> Questions { get; set; } = [];
 }

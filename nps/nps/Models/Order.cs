@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using nps.Models.SurveyQuestions;
 
 namespace nps.Models;
 
@@ -13,7 +14,7 @@ public sealed class Order
     public long Id { get; set; }
 
     [Column("order_number")]
-    [MaxLength(100), Required]
+    [MaxLength(60), Required]
     public string? Number { get; set; }
     
     [Column("order_date")]
@@ -28,6 +29,7 @@ public sealed class Order
     [Required]
     public long UserId { get; set; }
     
+    public ICollection<Survey> Surveys { get; set; }
     
     public User User { get; set; }
     

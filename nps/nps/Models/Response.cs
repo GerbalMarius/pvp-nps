@@ -16,5 +16,8 @@ public class Response
     public Question Question { get; set; }  
     
     [Column("answer"), MaxLength(100)]
-    public string? Answer { get; set; }
+    public string? TextAnswer { get; set; }
+    
+    [Column("number_rating")]
+    public int? NumberRating { get; set; }
 }

@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace nps.Models;
 
-
-
 [Table("users")]
 [Index(nameof(Email), IsUnique = true)]//unique constraint on emails , faster search also.
 public sealed class User

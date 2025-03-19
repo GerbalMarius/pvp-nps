@@ -17,5 +17,7 @@ public abstract class Question
     [Column("survey_id"), Required]
     public long SurveyId { get; set; }
 
+    public ICollection<Response> Responses { get; set; } = [];
+
     public Survey Survey { get; set; } 
 }

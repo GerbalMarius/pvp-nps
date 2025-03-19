@@ -5,6 +5,6 @@ namespace nps.Models.SurveyQuestions;
 
 public class DropDownQuestion : Question
 {
-    [Column("options"), MaxLength(10)]
+    [Column("options")]
     public List<string> Options { get; set; } = [];
 }
