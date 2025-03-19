@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace nps.Models;
+
+namespace nps.Models.SurveyQuestions;
 
 [Table("surveys")]
 public sealed class Survey
@@ -9,8 +10,9 @@ public sealed class Survey
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
 
-    [Column("final_score")]
-    public int? FinalScore { get; set; }
+    [Column("survey_name")]
+    [Required, MaxLength(100)]
+    public string? Name { get; set; }
 
-    public ICollection<SurveyQuestions.Question> Questions { get; set; } = [];
+    public ICollection<Question> Questions { get; set; } = [];
 }

@@ -4,22 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace nps.Models.SurveyQuestions;
 
 [Table("questions")]
-public sealed class Question
+public abstract class Question
 {
     [Key, Column("question_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
     
-    [Column("body", TypeName = "TEXT")]
-    public string Body { get; set; } = string.Empty;
+    [Column("question_text"), Required]
+    [MaxLength(120)]
+    public string? QuestionText { get; set; }
     
-    [Column("q_type")] 
-    public long QuestionTypeId { get; set; }
-
-    public QuestionType Type { get; set; }
-
-    [Column("survey_id")]
+    [Column("survey_id"), Required]
     public long SurveyId { get; set; }
-    
-    public Survey Survey { get; set; }
+
+    public Survey Survey { get; set; } 
 }

@@ -12,7 +12,7 @@ public sealed class Role
     
     [Required, Column("name")]
     [MaxLength(60)]
-    public required string Name { get; set; }
+    public  string? Name { get; set; }
 
     public ICollection<User> Users { get; set; } = [];
 

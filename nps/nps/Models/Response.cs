@@ -1,0 +1,20 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using nps.Models.SurveyQuestions;
+
+namespace nps.Models;
+[Table("responses")]
+public class Response
+{
+    [Key, Column("response_id")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public long Id { get; set; }
+    
+    [Column("question_id")]
+    public long QuestionId { get; set; }
+
+    public Question Question { get; set; }  
+    
+    [Column("answer"), MaxLength(100)]
+    public string? Answer { get; set; }
+}
