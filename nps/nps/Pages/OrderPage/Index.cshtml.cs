@@ -6,15 +6,15 @@ using nps.Models;
 
 namespace nps.Pages.OrderPage;
 
-public class OrderPage : PageModel
+public class Index : PageModel
 {
-    private readonly ILogger<OrderPage> _logger;
+    private readonly ILogger<Index> _logger;
     
     private readonly AppDbContext _db;
 
-    public UserDto? User { get; set; }
+    public User UserInfo { get; set; }
 
-    public OrderPage(AppDbContext db, ILogger<OrderPage> logger)
+    public Index(AppDbContext db, ILogger<Index> logger)
     {
         _logger = logger;
         _db = db;
@@ -22,9 +22,12 @@ public class OrderPage : PageModel
     
     public async Task<IActionResult> OnGet()
     {
-        var actual = await _db.Users.FindAsync(1L);
-        
-        User = new UserDto{Email = actual.Email, TelephoneNumber = actual.TelephoneNumber, Id = actual.Id};
+        var actual = await _db.Users
+            .Include(u => u.Orders)
+            .AsNoTracking()
+            .FirstAsync(user => user.Id == 1);
+
+        UserInfo = actual;
         return Page();
     }
 }

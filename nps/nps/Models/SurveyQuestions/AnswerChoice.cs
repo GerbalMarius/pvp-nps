@@ -9,10 +9,12 @@ public sealed class AnswerChoice
     [Key, Column("answer_choice_id")]
     public long Id { get; set; }
 
-    [Column("question_id"), Required]
+    [Column("q_id"), Required]
     public long QuestionId { get; set; }
 
+    [ForeignKey("QuestionId")]
     public Question Question { get; set; }
+    
 
     [Column("answer_text"), Required]
     [MaxLength(100)]

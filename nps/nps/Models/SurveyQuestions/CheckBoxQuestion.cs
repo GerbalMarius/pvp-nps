@@ -2,7 +2,7 @@
 
 namespace nps.Models.SurveyQuestions;
 
+[Table("checkbox_questions")]
 public class CheckBoxQuestion : Question
 {
-    public ICollection<AnswerChoice> Choices { get; set; }
 }

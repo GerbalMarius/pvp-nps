@@ -13,11 +13,13 @@ public class AppDbContext : DbContext
 
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
+    
     public DbSet<RatingQuestion> RatingQuestions { get; set; }
     public DbSet<SingleChoiceQuestion> SingleChoiceQuestions { get; set; }
     public DbSet<DropDownQuestion> DropDownQuestions { get; set; }
     public DbSet<CheckBoxQuestion> CheckBoxQuestions { get; set; }
     public DbSet<TextQuestion> TextQuestions { get; set; }
+    
     public DbSet<Response> Responses { get; set; }
     public DbSet<ResponseOption> ResponseOptions { get; set; }
 
@@ -56,10 +58,6 @@ public class AppDbContext : DbContext
                 date => date.ToUniversalTime(),
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
             );
-
-        modelBuilder.Entity<Question>()
-            .HasDiscriminator<int>("question_type")
-            .SetQuestionTypes();
 
         modelBuilder.Entity<User>()
             .HasMany(user => user.Roles)

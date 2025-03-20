@@ -17,4 +17,6 @@ public abstract class Question
     public ICollection<Response> Responses { get; set; } = [];
 
     public ICollection<Survey> Surveys { get; set; } = [];
+    
+    public ICollection<AnswerChoice> Choices { get; set; } = [];
 }

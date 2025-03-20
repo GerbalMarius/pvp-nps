@@ -1,0 +1,28 @@
+﻿@page
+@using nps.Models.SurveyQuestions
+@model nps.Pages.Survey.Display
+
+@{
+    ViewData["Title"] = $"Survey for order {Model.OrderId}";
+}
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true"/>
+    <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
+</head>
+
+
+@foreach(var question in Model.SurveyToDisplay.Questions)
+{
+    <h2>@question.QuestionText</h2>
+    if (question is DropDownQuestion dropDownQuestion)
+    {
+        foreach (var choice in dropDownQuestion.Choices)
+        {
+            <h2>@choice.Text</h2>
+        }
+    }
+}
