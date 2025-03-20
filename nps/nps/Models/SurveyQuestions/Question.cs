@@ -13,11 +13,8 @@ public abstract class Question
     [Column("question_text"), Required]
     [MaxLength(120)]
     public string? QuestionText { get; set; }
-    
-    [Column("survey_id"), Required]
-    public long SurveyId { get; set; }
 
     public ICollection<Response> Responses { get; set; } = [];
 
-    public Survey Survey { get; set; } 
+    public ICollection<Survey> Surveys { get; set; } = [];
 }

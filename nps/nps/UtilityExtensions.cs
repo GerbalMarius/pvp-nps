@@ -13,6 +13,7 @@ public static class UtilityExtensions
             .HasValue<RatingQuestion>((int)AnswerType.Rating)
             .HasValue<TextQuestion>((int)AnswerType.Text)
             .HasValue<SingleChoiceQuestion>((int)AnswerType.SingleChoice)
-            .HasValue<DropDownQuestion>((int)AnswerType.DropDownList);
+            .HasValue<DropDownQuestion>((int)AnswerType.DropDownList)
+            .HasValue<CheckBoxQuestion>((int)AnswerType.CheckBox);
     }
 }

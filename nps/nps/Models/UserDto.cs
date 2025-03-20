@@ -1,6 +1,10 @@
 ﻿namespace nps.Models;
 
-public class UserDto
+public record UserDto
 {
+    public long Id { get; init; }
+
+    public string? Email { get; init; }
     
+    public string? TelephoneNumber { get; init; }
 }

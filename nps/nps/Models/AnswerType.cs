@@ -5,5 +5,6 @@ public enum AnswerType
     Rating = 1,
     Text,
     SingleChoice,
-    DropDownList
+    DropDownList,
+    CheckBox
 }

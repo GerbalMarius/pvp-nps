@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using nps.Models.SurveyQuestions;
 
 namespace nps.Models;
+
 [Table("responses")]
 public class Response
 {
@@ -20,4 +21,7 @@ public class Response
     
     [Column("number_rating")]
     public int? NumberRating { get; set; }
+
+    public ICollection<ResponseOption> ResponseOptions { get; set; } = [];
+
 }

@@ -1,6 +1,8 @@
-﻿namespace nps.Models.SurveyQuestions;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-public class CheckBoxQuestion
+namespace nps.Models.SurveyQuestions;
+
+public class CheckBoxQuestion : Question
 {
-    
+    public ICollection<AnswerChoice> Choices { get; set; }
 }

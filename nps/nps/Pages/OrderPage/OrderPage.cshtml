@@ -2,18 +2,12 @@
 @model nps.Pages.OrderPage.OrderPage
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Order Page";
 }
 
-<!DOCTYPE html>
-
-<html>
 <head>
-    <title></title>
+    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+    <title>@ViewData["Title"]</title>
 </head>
-<body>
-<div>
-    
-</div>
-</body>
-</html>
+
+<h1>@Model.User?.Email</h1>
