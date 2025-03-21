@@ -28,6 +28,7 @@ public class Display : PageModel
         OrderId = orderId;
         SurveyToDisplay = await _db.Surveys.Include(s => s.Questions)
             .ThenInclude(q => q.Choices)
+            .AsSplitQuery()
             .AsNoTracking()
             .FirstAsync(s => s.OrderId == orderId);
         

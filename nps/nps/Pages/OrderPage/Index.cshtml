@@ -22,6 +22,7 @@
                 <th>Number</th>
                 <th>Order Date</th>
                 <th>Delivery Date</th>
+                <th>Attached Survey</th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +33,7 @@
                     <td>@order.Number</td>
                     <td>@order.OrderDate</td>
                     <td>@order.DeliveryDate</td>
-                    <td><a asp-page="/Survey/Display" asp-route-orderId="@order.Id" class="login-btn">View attached survey.</a></td>
+                    <td><a asp-page="/Survey/Display" asp-route-orderId="@order.Id" class="login-btn" style="text-decoration: none">View attached survey.</a></td>
                 </tr>
             }
             </tbody>
