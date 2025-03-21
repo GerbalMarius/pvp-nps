@@ -1,8 +1,10 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 :root {
     --green-gradient: linear-gradient(90deg, #2c8a6f, #2aaf2a);
     --hover-gradient: linear-gradient(90deg, #37a388, #32CD32);
+    --clicked: linear-gradient(90deg, #3fbe89, #1bd69e);
+    --turqoise-green: #3fbe89;
     --border-color: #ddd;
     --text-color: #222;
 }
@@ -27,7 +29,6 @@
     text-align: center;
 }
 
-/* Question Styling */
 .quiz-question {
     font-size: 1.2rem;
     font-weight: 500;
@@ -35,7 +36,7 @@
     margin-bottom: 5px;
 }
 
-/* Rating Buttons */
+
 .quiz-rating-buttons {
     display: flex;
     justify-content: space-between;
@@ -62,11 +63,10 @@
 }
 
 .rating-btn.active {
-    background: var(--hover-gradient);
+    background: var(--clicked);
     border: 2px solid #2c8a6f;
 }
 
-/* Multiple-Choice (Radio Buttons) */
 .quiz-options {
     display: flex;
     flex-direction: column;
@@ -157,7 +157,7 @@
     transform: scale(1.02);
 }
 
-/* Dropdown */
+
 .quiz-dropdown {
     width: 100%;
     padding: 12px;

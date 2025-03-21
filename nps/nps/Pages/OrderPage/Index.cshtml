@@ -1,0 +1,43 @@
+﻿@page
+@model nps.Pages.OrderPage.Index
+
+@{
+    ViewData["Title"] = "Order Page";
+}
+
+<head>
+    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+<h1 class="text-center">Orders of @Model.UserInfo.Email</h1>
+
+<body>
+<section class="content-section">
+    <div class="container-fluid text-center">
+        <table class="custom-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Order Date</th>
+                <th>Delivery Date</th>
+                <th>Attached Survey</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var order in Model.UserInfo.Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Number</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.DeliveryDate</td>
+                    <td><a asp-page="/Survey/Display" asp-route-orderId="@order.Id" class="login-btn" style="text-decoration: none">View attached survey.</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>

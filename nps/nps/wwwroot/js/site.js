@@ -1,13 +1,9 @@
-﻿
-
-function selectNPS(value) {
-    document.querySelectorAll('.smiley-btn').forEach(btn => {
+﻿function selectNPS(value, name) {
+    document.querySelectorAll('.rating-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     
-    document.querySelector(`.smiley-btn[data-value="${value}"]`).classList.add('active');
+    document.querySelector(`.rating-btn[data-value="${value}"]`).classList.add('active');
     
-    document.getElementById('selectedNPS').value = value;
-    
-    
+    document.getElementById(name).value = value;
 }

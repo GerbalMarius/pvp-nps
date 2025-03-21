@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace nps.Models.SurveyQuestions;
 
+
+[Table("dropdown_questions")]
 public class DropDownQuestion : Question
 {
-    [Column("options")]
-    public List<string> Options { get; set; } = [];
 }
