@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 :root {
     --green-gradient: linear-gradient(90deg, #2c8a6f, #2aaf2a);
@@ -28,7 +28,6 @@
     margin-bottom: 10px;
     text-align: center;
 }
-
 
 .quiz-question {
     font-size: 1.2rem;
@@ -67,7 +66,6 @@
     background: var(--clicked);
     border: 2px solid #2c8a6f;
 }
-
 
 .quiz-options {
     display: flex;

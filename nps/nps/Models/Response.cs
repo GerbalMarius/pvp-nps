@@ -23,5 +23,4 @@ public class Response
     public int? NumberRating { get; set; }
 
     public ICollection<ResponseOption> ResponseOptions { get; set; } = [];
-
 }

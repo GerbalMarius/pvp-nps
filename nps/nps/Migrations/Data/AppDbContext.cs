@@ -6,6 +6,9 @@ namespace nps.Migrations.Data;
 
 public class AppDbContext : DbContext
 {
+    public DbSet<Survey> Surveys { get; set; }  
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<Response> Responses { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
@@ -44,6 +47,7 @@ public class AppDbContext : DbContext
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
             );
 
+
         modelBuilder.Entity<Survey>()
             .Property(order => order.TakenAt)
             .HasConversion
@@ -58,6 +62,7 @@ public class AppDbContext : DbContext
                 date => date.ToUniversalTime(),
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
             );
+
 
         modelBuilder.Entity<User>()
             .HasMany(user => user.Roles)

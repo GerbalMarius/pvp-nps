@@ -14,13 +14,14 @@ public sealed class Survey
     [Required, MaxLength(100)]
     public string? Name { get; set; }
     
+
     [Column("created_at"), Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime CreatedAt { get; set; }
     
     [Column("taken_at")]
     public DateTime? TakenAt { get; set; }
-    
+
     [Column("order_id")]
     public long OrderId { get; set; }
 
