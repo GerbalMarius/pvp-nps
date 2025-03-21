@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = $"Survey for order {Model.OrderId}";
+    int counter = 0;
 }
 
 <head>
@@ -15,14 +16,23 @@
 </head>
 
 
-@foreach(var question in Model.SurveyToDisplay.Questions)
+@using (Html.BeginForm(FormMethod.Post, new { @class = "quiz-form" }))
 {
-    <h2>@question.QuestionText</h2>
-    if (question is DropDownQuestion dropDownQuestion)
+    <h1 class="quiz-title">@Model.SurveyToDisplay.Name</h1>
+    
+    foreach (var question in Model.SurveyToDisplay.Questions)
     {
-        foreach (var choice in dropDownQuestion.Choices)
+        if (question  is RatingQuestion ratingQuestion)
         {
-            <h2>@choice.Text</h2>
+            <div>
+                <p class="quiz-question">@ratingQuestion.QuestionText</p>
+                <div class="quiz-rating-buttons">
+                    @for (int i = 0; i < ratingQuestion.MaxValue; i++)
+                    {
+                        <button type='button' class='rating-btn' data-value=@(i + 1) onclick="selectNPS(@(i + 1), @($"selectedNps{question.Id}")">@(i + 1)</button>
+                    }
+                </div>
+            </div>
         }
     }
 }

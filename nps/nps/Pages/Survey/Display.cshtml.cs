@@ -11,6 +11,10 @@ public class Display : PageModel
     public int OrderId { get; set; }
 
     public Models.SurveyQuestions.Survey SurveyToDisplay { get; set; }
+
+
+    [BindProperty]
+    public List<string> Buffer { get; set; }
     
     
     private readonly ILogger<Display> _logger;
