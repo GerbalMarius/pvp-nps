@@ -106,6 +106,15 @@ footer {
     transform: scaleX(1);
 }
 
+.nav-link.active {
+    font-weight: bold;
+    color: #32CD32 !important;
+}
+
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
 .green-btn{
     background: linear-gradient(90deg, #37a388, #32CD32);
     font-weight: bold !important;
