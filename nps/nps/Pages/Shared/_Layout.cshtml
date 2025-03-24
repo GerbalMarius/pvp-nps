@@ -22,19 +22,19 @@
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
 						<li class="nav-item">
-							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")"
+							<a class="nav-link text-dark @(CheckActivePage("/Index"))"
 							   asp-area="" asp-page="/Index">Main page</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Responses" ? "active" : "")"
+							<a class="nav-link text-dark @(CheckActivePage("/Responses"))"
 							   asp-area="" asp-page="/Responses">Responses</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Statistics" ? "active" : "")"
+							<a class="nav-link text-dark @(CheckActivePage("/Statistics"))"
 							   asp-area="" asp-page="/Statistics">Statistics</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/UserFunctions/UserAddition" ? "active" : "")"
+							<a class="nav-link text-dark @(CheckActivePage("/UserFunctions/UserAddition"))"
 							   asp-area="" asp-page="/UserFunctions/UserAddition">Employee registration</a>
 						</li>
 					</ul>
@@ -61,5 +61,12 @@
 	<script src="~/js/site.js" asp-append-version="true"></script>
 
 	@await RenderSectionAsync("Scripts", required: false)
+	
+	@{
+		string CheckActivePage(string routeName)
+		{
+			return ViewContext.RouteData.Values["Page"]?.ToString() == routeName ? "active" : "";
+		}
+	}
 </body>
 </html>
