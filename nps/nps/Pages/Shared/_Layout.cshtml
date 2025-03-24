@@ -22,16 +22,20 @@
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-page="/Index">Main page</a>
+							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")"
+							   asp-area="" asp-page="/Index">Main page</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-page="/Index">Responses</a>
+							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Responses" ? "active" : "")"
+							   asp-area="" asp-page="/Responses">Responses</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-page="/Index">Statistics</a>
+							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Statistics" ? "active" : "")"
+							   asp-area="" asp-page="/Statistics">Statistics</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-page="/UserFunctions/UserAddition">Employee registration</a>
+							<a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/UserFunctions/UserAddition" ? "active" : "")"
+							   asp-area="" asp-page="/UserFunctions/UserAddition">Employee registration</a>
 						</li>
 					</ul>
 					<a asp-page="/Login/Index" class="btn btn-outline-success me-2" style="font-weight: 700;">Login</a>
