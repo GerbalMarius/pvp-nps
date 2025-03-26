@@ -1,10 +1,11 @@
 ﻿@page
 @using nps.Models.SurveyQuestions
-@model nps.Pages.Survey.Display
+@model Display
 
 @{
-    ViewData["Title"] = $"Survey for order {Model.OrderId}";
-    int counter = 0;
+    ViewData["Title"] = "Survey for order";
+    var success = Request.Query["success"];
+    Layout = null;
 }
 
 <head>
@@ -12,27 +13,41 @@
     <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true"/>
     <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true"/>
     <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
 </head>
 
-
-@using (Html.BeginForm(FormMethod.Post, new { @class = "quiz-form" }))
-{
-    <h1 class="quiz-title">@Model.SurveyToDisplay.Name</h1>
+<form method="post" class="quiz-form">
+    @Html.AntiForgeryToken()
+    <h1 class="quiz-title">@Model.SurveyToDisplay?.Name</h1>
     
-    foreach (var question in Model.SurveyToDisplay.Questions)
+    @if (!string.IsNullOrEmpty(success) && success == "True")
     {
-        if (question  is RatingQuestion ratingQuestion)
+        <div class="alert alert-success">
+            Your responses have been submitted successfully!
+        </div>
+    }
+    <h1>@Model.SurveyToDisplay!.Questions.Count</h1>
+    @foreach (var question in Model.SurveyToDisplay!.Questions)
+    {
+        switch (question)
         {
-            <div>
-                <p class="quiz-question">@ratingQuestion.QuestionText</p>
-                <div class="quiz-rating-buttons">
-                    @for (int i = 0; i < ratingQuestion.MaxValue; i++)
-                    {
-                        <button type='button' class='rating-btn' data-value=@(i + 1) onclick="selectNPS(@(i + 1), @($"selectedNps{question.Id}")">@(i + 1)</button>
-                    }
-                </div>
-            </div>
+            case RatingQuestion ratingQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_RatingQuestion", ratingQuestion)
+                break;
+            case TextQuestion textQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_TextQuestion", textQuestion)
+                break;
+            case CheckBoxQuestion checkBoxQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_CheckBoxQuestion", checkBoxQuestion)
+                break;
+            case DropDownQuestion dropDownQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_DropDownQuestion", dropDownQuestion)
+                break;
+            case SingleChoiceQuestion singleChoiceQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_SingleChoiceQuestion", singleChoiceQuestion)
+                break;
         }
     }
-}
+    <input type="submit" class="quiz-submit" value="Submit">
+</form>

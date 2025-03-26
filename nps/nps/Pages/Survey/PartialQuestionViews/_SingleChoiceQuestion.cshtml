@@ -1,0 +1,13 @@
+﻿@model nps.Models.SurveyQuestions.SingleChoiceQuestion
+<div id="question-@Model.Id">
+    <p class="quiz-question">@Model.QuestionText</p>
+    <div class="quiz-options">
+        @foreach (var choice in Model.Choices.Take(Model.MaxOptions)
+                                             .OrderBy(ch => ch.Text))
+        {
+            <label class="quiz-option">
+                <input type="radio" name='@($"radio{Model.Id}")' value="@choice.Text"> @choice.Text
+            </label>
+        }
+    </div>
+</div>

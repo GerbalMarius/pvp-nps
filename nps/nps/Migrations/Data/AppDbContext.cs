@@ -141,7 +141,11 @@ public class AppDbContext : DbContext
             // Options for CheckBoxQuestion (ID: 5)
             new AnswerChoice { Id = 4, QuestionId = 5, Text = "Email" },
             new AnswerChoice { Id = 5, QuestionId = 5, Text = "Phone" },
-            new AnswerChoice { Id = 6, QuestionId = 5, Text = "SMS" }
+            new AnswerChoice { Id = 6, QuestionId = 5, Text = "SMS" },
+            new AnswerChoice { Id = 7, QuestionId = 3, Text = "Feature A" },
+            new AnswerChoice { Id = 8, QuestionId = 3, Text = "Feature B" },
+            new AnswerChoice { Id = 9, QuestionId = 3, Text = "Feature C" }
+            
         );
     }
 }

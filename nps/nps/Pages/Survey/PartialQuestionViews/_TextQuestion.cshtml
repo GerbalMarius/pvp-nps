@@ -1,0 +1,6 @@
+﻿@model nps.Models.SurveyQuestions.TextQuestion
+
+<div id="question-@Model.Id">
+    <p class="quiz-question">@Model.QuestionText</p>
+    <textarea class="quiz-textarea" name='@($"feedback{Model.Id}")'></textarea>
+</div>
