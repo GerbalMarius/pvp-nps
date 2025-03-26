@@ -38,9 +38,9 @@
 						</li>
 					</ul>
 
-					@if (User.Identity != null && User.Identity.IsAuthenticated)
+					@if (Context.Session.GetString("email") != null)
 					{
-						<form method="get" asp-page="/Logout/Index">
+						<form method="post" asp-page="/Logout/Index">
 							<button type="submit" class="btn btn-outline-danger me-2" style="font-weight: 700;">Logout</button>
 						</form>
 					}
