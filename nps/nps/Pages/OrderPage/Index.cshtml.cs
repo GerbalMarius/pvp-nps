@@ -20,7 +20,7 @@ public class Index : PageModel
         _db = db;
     }
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         var actual = await _db.Users
             .Include(u => u.Orders)

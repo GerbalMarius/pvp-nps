@@ -25,7 +25,7 @@ public class Display : PageModel
         _logger = logger;
     }
 
-    public async Task<IActionResult> OnGet(long orderId)
+    public async Task<IActionResult> OnGetAsync(long orderId)
     {
         OrderId = orderId;
         SurveyToDisplay = await _db.Surveys.Include(s => s.Questions)
@@ -42,7 +42,7 @@ public class Display : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPost(long orderId)
+    public async Task<IActionResult> OnPostAsync(long orderId)
     {
         OrderId = orderId;
     
