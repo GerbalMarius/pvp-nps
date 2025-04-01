@@ -12,9 +12,14 @@
 
 <h1 class="text-center">Orders of @Model.UserInfo.Email</h1>
 
-<body>
+<div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p style="font-weight: 600;">Loading orders...</p>
+</div>
+
+<body onload="hideLoading()">
 <section class="content-section">
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center" id="orderTable" style="display: none;">
         <table class="custom-table">
             <thead>
             <tr>
@@ -41,3 +46,14 @@
     </div>
 </section>
 </body>
+
+@section Scripts {
+    <script>
+    function hideLoading() {
+        setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("orderTable").style.display = "block";
+        }, 500);
+    }
+</script>
+}
