@@ -26,7 +26,7 @@ public sealed class Order
     public DateTime DeliveryDate { get; set; }
     
     [Column("worker_id")]
-    public long WorkerId { get; set; }
+    public long? WorkerId { get; set; }
     
     public ICollection<Survey> Surveys { get; set; }
     public Worker worker { get; set; }

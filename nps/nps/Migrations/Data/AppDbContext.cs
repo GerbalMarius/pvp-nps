@@ -14,13 +14,16 @@ public class AppDbContext : DbContext
 
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
+    
     public DbSet<RatingQuestion> RatingQuestions { get; set; }
     public DbSet<SingleChoiceQuestion> SingleChoiceQuestions { get; set; }
     public DbSet<DropDownQuestion> DropDownQuestions { get; set; }
     public DbSet<CheckBoxQuestion> CheckBoxQuestions { get; set; }
     public DbSet<TextQuestion> TextQuestions { get; set; }
+    
     public DbSet<Response> Responses { get; set; }
     public DbSet<ResponseOption> ResponseOptions { get; set; }
+    
     public DbSet<User> Users { get; set; }
     public DbSet<Worker> Workers { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -45,10 +48,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Response>()
             .Property(response => response.ResponseDate)
-            .HasDefaultValueSql
-            (
-               "NOW()"
-            );
+            .HasDefaultValueSql("NOW()");
 
         modelBuilder.Entity<Order>()
             .Property(order => order.DeliveryDate)
