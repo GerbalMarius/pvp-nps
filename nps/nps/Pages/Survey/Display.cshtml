@@ -17,6 +17,7 @@
     <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
 </head>
 
+<body>
 <form method="post" class="quiz-form">
     @Html.AntiForgeryToken()
     <h1 class="quiz-title">@Model.SurveyToDisplay?.Name</h1>
@@ -50,3 +51,4 @@
     }
     <input type="submit" class="quiz-submit" value="Submit">
 </form>
+</body>
