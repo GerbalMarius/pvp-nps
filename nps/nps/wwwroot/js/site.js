@@ -5,11 +5,6 @@
 
     buttons.forEach(btn => btn.classList.remove('active'));
 
-
-    
-    let questionContainer = document.getElementById(`question-${questionId}`);
-    let buttons = questionContainer.querySelectorAll('.rating-btn');
-
     
     buttons.forEach(btn => btn.classList.remove('active'));
 
@@ -50,5 +45,4 @@ document.addEventListener('click', event => {
         dropdown.classList.remove('active');
     }
 });
-}
 
