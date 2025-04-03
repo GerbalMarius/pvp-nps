@@ -38,6 +38,175 @@ footer {
     font-weight: 700;
 }
 
+.vertical-nav{
+    width: 5rem;
+    background: linear-gradient(to bottom, #37a388, #32CD32);
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    color: var(--white-variant);
+    overflow: hidden;
+    transition: width .3s ease-in-out;
+    position: relative;
+}
+.vertical-nav.expanded{
+    width: 15rem;
+}
+
+.burger-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    color: var(--white-variant);
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: transform .3s ease, color .3s ease, box-shadow .3s ease;
+}
+.burger-btn:hover {
+    transform: scale(1.1);
+    color : var(--white-variant);
+    background: linear-gradient(90deg, #37a388, #32CD32);
+    box-shadow:0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}
+.burger-btn:focus{
+    outline: none;
+    border: 2px solid var(--white-variant );
+}
+.burger-btn:active{
+    transform: scale(0.95);
+}
+.vertical-nav-item{
+    display: flex;
+    padding : 1.2rem;
+    margin-top: 1.45rem;
+    text-decoration: none;
+    color: var(--white-variant);
+    font-size: 1.2rem;
+    border-radius: 10px;
+    transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
+}
+.vertical-nav-item:hover, .vertical-nav-item.active{
+    background: linear-gradient(to right, #37a388, #32CD32);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px  rgba(0, 0, 0, 0.1);
+}
+.vertical-nav-item:focus{
+    outline: none;
+    border: 2px solid var(--white-variant);
+    transform: scale(1.05);
+}
+.vertical-nav-item:active{
+    transform: scale(0.95);
+    box-shadow: none;
+}
+.nav-icon{
+    font-size: 20px;
+    width: 30px;
+    text-align: center;
+}
+.nav-text {
+    display: none;
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+.vertical-nav.expanded .nav-text{
+    display: inline;
+}
+/*Exclusive defs for positioning widths (●'◡'●)*/
+.burger-btn {
+    position: absolute;
+    top: 0;
+    left: -10px;
+    background: none;
+    border: none;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+}
+.menu-img{
+    width: 30px;
+    height: 30px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown button{
+    background: none;
+    color: black;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: var(--white-variant);
+    min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow:hidden;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*Respecify links for dropdown , because their layout is different enough to justify the exclusive def of anchors in the dropdown window*/
+.dropdown-content a {
+    font-weight: 700;
+    position: relative;
+    color: black;
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #37a388, #32CD32);
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.dropdown-content a:hover::after {
+    transform: scaleX(1);
+}
+
+.account-icon{
+    width: 30px;
+    height: 30px;
+}
+.arrow{
+    display: inline-block;
+    transition: transform .3s ease-in-out;
+}
+
+.dropdown.active .arrow {
+    transform: rotate(180deg);
+}
+
 .loading-container {
     text-align: center;
     margin-top: 50px;
