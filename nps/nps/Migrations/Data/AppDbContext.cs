@@ -4,14 +4,9 @@ using nps.Models.SurveyQuestions;
 
 namespace nps.Migrations.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) 
+    : DbContext(options)
 {
-   
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
     
@@ -24,7 +19,6 @@ public class AppDbContext : DbContext
     public DbSet<Response> Responses { get; set; }
     public DbSet<ResponseOption> ResponseOptions { get; set; }
     
-    public DbSet<User> Users { get; set; }
     public DbSet<Worker> Workers { get; set; }
     public DbSet<Order> Orders { get; set; }
 
@@ -75,10 +69,10 @@ public class AppDbContext : DbContext
             );
 
 
-        modelBuilder.Entity<User>()
-            .HasMany(user => user.Roles)
-            .WithMany(role => role.Users)
-            .UsingEntity(joinEntity => joinEntity.ToTable("user_roles"));
+        modelBuilder.Entity<Worker>()
+            .HasMany(worker => worker.Roles)
+            .WithMany(role => role.Workers)
+            .UsingEntity(joinEntity => joinEntity.ToTable("worker_roles"));
 
         modelBuilder.Entity<Survey>()
             .HasMany(survey => survey.Questions)
@@ -89,13 +83,12 @@ public class AppDbContext : DbContext
             .Property(survey => survey.CreatedAt)
             .HasDefaultValueSql("NOW()");
 
-        modelBuilder.Entity<User>().HasData(
-            new User
+        modelBuilder.Entity<Worker>().HasData(
+            new Worker
             {
                 Id = 1,
                 Email = "admin@example.com",
                 Password = "Admin123",
-                TelephoneNumber = "+37069476375"
             }
         );
         

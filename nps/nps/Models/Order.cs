@@ -27,6 +27,10 @@ public sealed class Order
     
     [Column("worker_id")]
     public long? WorkerId { get; set; }
+
+    [Column("client_email"), MaxLength(100)]
+    [Required]
+    public string ClientEmail { get; set; }
     
     public ICollection<Survey> Surveys { get; set; }
     public Worker worker { get; set; }

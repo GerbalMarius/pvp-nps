@@ -14,6 +14,6 @@ public sealed class Role
     [MaxLength(60)]
     public string? Name { get; set; }
 
-    public ICollection<User> Users { get; set; } = [];
+    public ICollection<Worker> Workers { get; set; } = [];
 
 }

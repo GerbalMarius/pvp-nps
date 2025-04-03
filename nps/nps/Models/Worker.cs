@@ -6,7 +6,7 @@ namespace nps.Models;
 
 [Table("workers")]
 [Index(nameof(Email), IsUnique = true)]
-public class Worker
+public sealed class Worker
 {
     [Key]
     [Column("id")]
@@ -32,6 +32,8 @@ public class Worker
     [Column("last_name")]
     [MaxLength(80)]
     public string LastName { get; set; }
+
+    public ICollection<Role> Roles { get; set; } = [];
 
     public ICollection<Order> Orders { get; set; } = [];
 }
