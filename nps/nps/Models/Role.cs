@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace nps.Models;
 
 [Table("roles")]
+[Index(nameof(Name), IsUnique = true)]
 public sealed class Role
 {
     [Key, Column("id")]

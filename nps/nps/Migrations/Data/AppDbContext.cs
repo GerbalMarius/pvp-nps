@@ -20,6 +20,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<ResponseOption> ResponseOptions { get; set; }
     
     public DbSet<Worker> Workers { get; set; }
+    public DbSet<Role> Roles { get; set; }
     public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -89,6 +90,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 Id = 1,
                 Email = "admin@example.com",
                 Password = "Admin123",
+                Name = "Admin",
+                LastName = "Admin"
             }
         );
         
