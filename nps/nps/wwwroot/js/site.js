@@ -1,8 +1,18 @@
 ﻿function selectNPS(value, name, questionId) {
+
     let questionContainer = document.getElementById(`question-${questionId}`);
     let buttons = questionContainer.querySelectorAll('.rating-btn');
 
     buttons.forEach(btn => btn.classList.remove('active'));
+
+
+    
+    let questionContainer = document.getElementById(`question-${questionId}`);
+    let buttons = questionContainer.querySelectorAll('.rating-btn');
+
+    
+    buttons.forEach(btn => btn.classList.remove('active'));
+
 
     let selectedButton = questionContainer.querySelector(`.rating-btn[data-value="${value}"]`);
     if (selectedButton) {
@@ -13,7 +23,9 @@
     if (inputField) {
         inputField.value = value;
     }
+
 }
+
 //used for expansion of navbar through clicking of burger menu.
 function toggleNavBar(event, navBarId) {
     event.stopPropagation();
@@ -38,3 +50,5 @@ document.addEventListener('click', event => {
         dropdown.classList.remove('active');
     }
 });
+}
+
