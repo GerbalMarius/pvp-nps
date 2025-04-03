@@ -30,7 +30,7 @@ public sealed class Order
 
     [Column("client_email"), MaxLength(100)]
     [Required]
-    public string ClientEmail { get; set; }
+    public required string ClientEmail { get; set; }
     
     public ICollection<Survey> Surveys { get; set; }
     public Worker worker { get; set; }

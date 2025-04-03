@@ -98,13 +98,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 Id = 1001, 
                 Number = "155877AA", 
                 OrderDate = new DateTime(2024,1,1), 
-                DeliveryDate = new DateTime(2024,5,1)
+                DeliveryDate = new DateTime(2024,5,1),
+                ClientEmail = "admin@example.com",
             },
             new Order {
                 Id = 1002, 
                 Number = "ABSASBSABSSSX", 
                 OrderDate = new DateTime(2025,1,1), 
-                DeliveryDate = new DateTime(2025,3,1)
+                DeliveryDate = new DateTime(2025,3,1),
+                ClientEmail = "admin@example.com",
             }
         );
         
