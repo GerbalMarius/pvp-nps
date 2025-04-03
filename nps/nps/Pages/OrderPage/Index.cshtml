@@ -10,7 +10,6 @@
     <title>@ViewData["Title"]</title>
 </head>
 
-<h1 class="text-center">Orders of @Model.UserInfo.Email</h1>
 
 <div id="loading" class="loading-container">
     <div class="spinner"></div>
@@ -31,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var order in Model.UserInfo.Orders)
+            @foreach (var order in Model.OrderData)
             {
                 <tr>
                     <td>@order.Id</td>

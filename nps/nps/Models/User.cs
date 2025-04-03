@@ -23,8 +23,6 @@ public sealed class User
     [Required, Column("telephone_number")]
     [MaxLength(20)]
     public string? TelephoneNumber { get; set; }
-    
-    public ICollection<Order> Orders { get; set; } = [];
 
     public ICollection<Role> Roles { get; set; } = [];
 

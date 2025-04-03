@@ -22,5 +22,9 @@ public class Response
     [Column("number_rating")]
     public int? NumberRating { get; set; }
 
+    [Column("repsponse_date")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public DateTime? ResponseDate { get; set; }
+
     public ICollection<ResponseOption> ResponseOptions { get; set; } = [];
 }

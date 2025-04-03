@@ -14,17 +14,16 @@ public class AppDbContext : DbContext
 
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
-    
     public DbSet<RatingQuestion> RatingQuestions { get; set; }
     public DbSet<SingleChoiceQuestion> SingleChoiceQuestions { get; set; }
     public DbSet<DropDownQuestion> DropDownQuestions { get; set; }
     public DbSet<CheckBoxQuestion> CheckBoxQuestions { get; set; }
     public DbSet<TextQuestion> TextQuestions { get; set; }
-    
     public DbSet<Response> Responses { get; set; }
     public DbSet<ResponseOption> ResponseOptions { get; set; }
-
     public DbSet<User> Users { get; set; }
+    public DbSet<Worker> Workers { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,6 +34,20 @@ public class AppDbContext : DbContext
             (
                 date => date.ToUniversalTime(),
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
+            );
+        modelBuilder.Entity<Response>()
+            .Property(response => response.ResponseDate)
+            .HasConversion
+            (
+                date => date.Value.ToUniversalTime(),
+                date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
+            );
+
+        modelBuilder.Entity<Response>()
+            .Property(response => response.ResponseDate)
+            .HasDefaultValueSql
+            (
+               "NOW()"
             );
 
         modelBuilder.Entity<Order>()
@@ -92,15 +105,13 @@ public class AppDbContext : DbContext
                 Id = 1001, 
                 Number = "155877AA", 
                 OrderDate = new DateTime(2024,1,1), 
-                DeliveryDate = new DateTime(2024,5,1),
-                UserId = 1
+                DeliveryDate = new DateTime(2024,5,1)
             },
             new Order {
                 Id = 1002, 
                 Number = "ABSASBSABSSSX", 
                 OrderDate = new DateTime(2025,1,1), 
-                DeliveryDate = new DateTime(2025,3,1),
-                UserId = 1
+                DeliveryDate = new DateTime(2025,3,1)
             }
         );
         

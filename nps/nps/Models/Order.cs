@@ -25,12 +25,9 @@ public sealed class Order
     [Required]
     public DateTime DeliveryDate { get; set; }
     
-    [Column("user_id")]
-    [Required]
-    public long UserId { get; set; }
+    [Column("worker_id")]
+    public long WorkerId { get; set; }
     
     public ICollection<Survey> Surveys { get; set; }
-    
-    public User User { get; set; }
-    
+    public Worker worker { get; set; }
 }
