@@ -5,9 +5,6 @@
 
     buttons.forEach(btn => btn.classList.remove('active'));
 
-    
-    buttons.forEach(btn => btn.classList.remove('active'));
-
 
     let selectedButton = questionContainer.querySelector(`.rating-btn[data-value="${value}"]`);
     if (selectedButton) {

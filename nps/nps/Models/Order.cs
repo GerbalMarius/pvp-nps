@@ -25,12 +25,13 @@ public sealed class Order
     [Required]
     public DateTime DeliveryDate { get; set; }
     
-    [Column("user_id")]
+    [Column("worker_id")]
+    public long? WorkerId { get; set; }
+
+    [Column("client_email"), MaxLength(100)]
     [Required]
-    public long UserId { get; set; }
+    public required string ClientEmail { get; set; }
     
     public ICollection<Survey> Surveys { get; set; }
-    
-    public User User { get; set; }
-    
+    public Worker worker { get; set; }
 }

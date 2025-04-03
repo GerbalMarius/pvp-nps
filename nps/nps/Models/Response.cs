@@ -5,7 +5,7 @@ using nps.Models.SurveyQuestions;
 namespace nps.Models;
 
 [Table("responses")]
-public class Response
+public sealed class Response
 {
     [Key, Column("response_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,6 +21,10 @@ public class Response
     
     [Column("number_rating")]
     public int? NumberRating { get; set; }
+
+    [Column("repsponse_date")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public DateTime? ResponseDate { get; set; }
 
     public ICollection<ResponseOption> ResponseOptions { get; set; } = [];
 }

@@ -12,7 +12,8 @@ public class Index : PageModel
     
     private readonly AppDbContext _db;
 
-    public User UserInfo { get; set; }
+    public IEnumerable<Order> OrderData { get; set; }
+
 
     public Index(AppDbContext db, ILogger<Index> logger)
     {
@@ -22,12 +23,10 @@ public class Index : PageModel
     
     public async Task<IActionResult> OnGetAsync()
     {
-        var actual = await _db.Users
-            .Include(u => u.Orders)
-            .AsNoTracking()
-            .FirstAsync(user => user.Id == 1);
+        var actual = await _db.Orders.ToListAsync();
+            
 
-        UserInfo = actual;
+        OrderData = actual;
         return Page();
     }
 }

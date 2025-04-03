@@ -4,14 +4,9 @@ using nps.Models.SurveyQuestions;
 
 namespace nps.Migrations.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) 
+    : DbContext(options)
 {
-   
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
     
@@ -23,8 +18,10 @@ public class AppDbContext : DbContext
     
     public DbSet<Response> Responses { get; set; }
     public DbSet<ResponseOption> ResponseOptions { get; set; }
-
-    public DbSet<User> Users { get; set; }
+    
+    public DbSet<Worker> Workers { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,6 +33,17 @@ public class AppDbContext : DbContext
                 date => date.ToUniversalTime(),
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
             );
+        modelBuilder.Entity<Response>()
+            .Property(response => response.ResponseDate)
+            .HasConversion
+            (
+                date => date.Value.ToUniversalTime(),
+                date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
+            );
+
+        modelBuilder.Entity<Response>()
+            .Property(response => response.ResponseDate)
+            .HasDefaultValueSql("NOW()");
 
         modelBuilder.Entity<Order>()
             .Property(order => order.DeliveryDate)
@@ -62,10 +70,10 @@ public class AppDbContext : DbContext
             );
 
 
-        modelBuilder.Entity<User>()
-            .HasMany(user => user.Roles)
-            .WithMany(role => role.Users)
-            .UsingEntity(joinEntity => joinEntity.ToTable("user_roles"));
+        modelBuilder.Entity<Worker>()
+            .HasMany(worker => worker.Roles)
+            .WithMany(role => role.Workers)
+            .UsingEntity(joinEntity => joinEntity.ToTable("worker_roles"));
 
         modelBuilder.Entity<Survey>()
             .HasMany(survey => survey.Questions)
@@ -76,13 +84,14 @@ public class AppDbContext : DbContext
             .Property(survey => survey.CreatedAt)
             .HasDefaultValueSql("NOW()");
 
-        modelBuilder.Entity<User>().HasData(
-            new User
+        modelBuilder.Entity<Worker>().HasData(
+            new Worker
             {
                 Id = 1,
                 Email = "admin@example.com",
                 Password = "Admin123",
-                TelephoneNumber = "+37069476375"
+                Name = "Admin",
+                LastName = "Admin"
             }
         );
         
@@ -93,14 +102,14 @@ public class AppDbContext : DbContext
                 Number = "155877AA", 
                 OrderDate = new DateTime(2024,1,1), 
                 DeliveryDate = new DateTime(2024,5,1),
-                UserId = 1
+                ClientEmail = "admin@example.com",
             },
             new Order {
                 Id = 1002, 
                 Number = "ABSASBSABSSSX", 
                 OrderDate = new DateTime(2025,1,1), 
                 DeliveryDate = new DateTime(2025,3,1),
-                UserId = 1
+                ClientEmail = "admin@example.com",
             }
         );
         
