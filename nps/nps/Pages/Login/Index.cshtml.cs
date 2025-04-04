@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.VisualBasic;
-using System.ComponentModel.DataAnnotations;
-using nps.Models;
+using nps.Models.DTOS;
 
 namespace nps.Pages.Login
 {

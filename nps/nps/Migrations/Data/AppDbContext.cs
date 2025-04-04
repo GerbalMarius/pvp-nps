@@ -49,7 +49,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             .Property(order => order.DeliveryDate)
             .HasConversion
             (
-                date => date.ToUniversalTime(),
+                date => date!.Value.ToUniversalTime(),
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
             );
 
@@ -103,6 +103,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 OrderDate = new DateTime(2024,1,1), 
                 DeliveryDate = new DateTime(2024,5,1),
                 ClientEmail = "admin@example.com",
+                SurveyId = 1,
             },
             new Order {
                 Id = 1002, 
@@ -110,12 +111,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 OrderDate = new DateTime(2025,1,1), 
                 DeliveryDate = new DateTime(2025,3,1),
                 ClientEmail = "admin@example.com",
+                SurveyId = 2,
             }
         );
         
         modelBuilder.Entity<Survey>().HasData(
-            new Survey { Id = 1, Name = "Feedback", OrderId = 1001},
-            new Survey { Id = 2, Name = "Satisfaction", OrderId = 1002}
+            new Survey { Id = 1, Name = "Feedback"},
+            new Survey { Id = 2, Name = "Satisfaction"}
         );
 
        

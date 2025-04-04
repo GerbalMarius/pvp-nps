@@ -60,7 +60,6 @@
 
 .rating-btn:hover {
     background: var(--hover-gradient);
-    transform: scale(1.1);
 }
 
 .rating-btn.active {
