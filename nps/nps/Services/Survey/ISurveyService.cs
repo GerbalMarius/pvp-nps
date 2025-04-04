@@ -6,5 +6,5 @@ public interface ISurveyService
 {
      Task<Survey?> GetSurveyAsync(long surveyId);
     
-    Task<Survey?> FetchSurveyByOrderId(long orderId);
+    Task<Survey?> FetchSurveyByOrderNumber(string orderNumber);
 }

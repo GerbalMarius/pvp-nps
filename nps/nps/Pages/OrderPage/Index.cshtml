@@ -37,7 +37,15 @@
                     <td>@order.Number</td>
                     <td>@order.OrderDate</td>
                     <td>@order.DeliveryDate</td>
-                    <td><a asp-page="/Survey/Display" asp-route-orderId="@order.Id" class="login-btn" style="text-decoration: none">View attached survey.</a></td>
+                    @if (order.HasSurvey)
+                    {
+                        <td><a asp-page="/Survey/Display" asp-route-orderNumber="@order.Number" class="login-btn" style="text-decoration: none; color: var(--white-variant) !important;">View attached survey.</a></td>
+
+                    }
+                    else
+                    {
+                        <td class="text text-danger">No corresponding survey attached.</td>
+                    }
                 </tr>
             }
             </tbody>

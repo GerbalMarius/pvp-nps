@@ -12,7 +12,7 @@ public class Index : PageModel
     
     private readonly AppDbContext _db;
 
-    public IEnumerable<Order> OrderData { get; set; }
+    public IQueryable<Order> OrderData { get; set; }
 
 
     public Index(AppDbContext db, ILogger<Index> logger)
@@ -21,12 +21,11 @@ public class Index : PageModel
         _db = db;
     }
     
-    public async Task<IActionResult> OnGetAsync()
+    public IActionResult OnGet()
     {
-        var actual = await _db.Orders.ToListAsync();
-            
-
-        OrderData = actual;
+        OrderData = _db.Orders
+            .OrderBy(order => order.Id)   
+            .AsNoTracking();
         return Page();
     }
 }

@@ -20,14 +20,14 @@ public sealed class SurveyService : ISurveyService
         return await _dbContext.Surveys.FindAsync(surveyId);
     }
 
-    public async Task<Models.SurveyQuestions.Survey?> FetchSurveyByOrderId(long orderId)
+    public async Task<Models.SurveyQuestions.Survey?> FetchSurveyByOrderNumber(string orderNumber)
     {
       return await _dbContext.Surveys
             .Include(s => s.Orders) 
             .Include(s => s.Questions)
             .ThenInclude(q => q.Choices)
             .Where(s => !s.TakenAt.HasValue)
-            .Where(s => s.Orders.Any(o => o.Id == orderId && o.HasSurvey))
+            .Where(s => s.Orders.Any(o => o.Number == orderNumber))
             .AsSplitQuery()
             .FirstOrDefaultAsync();
     }

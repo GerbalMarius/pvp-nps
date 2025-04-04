@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace nps.Models
+namespace nps.Models.DTOS
 {
     public record LoginInfo
     {
