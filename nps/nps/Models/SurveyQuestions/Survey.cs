@@ -22,10 +22,8 @@ public sealed class Survey
     [Column("taken_at")]
     public DateTime? TakenAt { get; set; }
 
-    [Column("order_id")]
-    public long OrderId { get; set; }
 
-    public Order Order { get; set; }
+    public ICollection<Order> Orders { get; set; } = [];
 
     public ICollection<Question> Questions { get; set; } = [];
 }

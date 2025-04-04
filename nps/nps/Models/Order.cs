@@ -23,15 +23,24 @@ public sealed class Order
     
     [Column("delivery_date")]
     [Required]
-    public DateTime DeliveryDate { get; set; }
+    public DateTime? DeliveryDate { get; set; }
+
+    [Column("has_survey")]
+    [Required]
+    public bool HasSurvey { get; set; } = false;
     
     [Column("worker_id")]
     public long? WorkerId { get; set; }
+    
+    public Worker Worker { get; set; }
+
 
     [Column("client_email"), MaxLength(100)]
     [Required]
     public required string ClientEmail { get; set; }
+
+    public long? SurveyId { get; set; }
     
-    public ICollection<Survey> Surveys { get; set; }
-    public Worker worker { get; set; }
+    public Survey? Survey { get; set; }
+    
 }

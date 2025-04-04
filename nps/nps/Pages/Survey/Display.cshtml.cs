@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using nps.Migrations.Data;
+using nps.Services.Survey;
 
 namespace nps.Pages.Survey;
 
@@ -13,26 +14,25 @@ public class Display : PageModel
     private readonly ILogger<Display> _logger;
     
     public long OrderId { get; set; }
+    
+    private readonly ISurveyService _surveyService;
 
     public Models.SurveyQuestions.Survey? SurveyToDisplay { get; set; }
     
     [BindProperty] 
     public List<string> Buffer { get; } = [];
 
-    public Display(AppDbContext db, ILogger<Display> logger)
+    public Display(AppDbContext db, ILogger<Display> logger, ISurveyService surveyService)
     {
         _db = db;
         _logger = logger;
+        _surveyService = surveyService;
     }
 
     public async Task<IActionResult> OnGetAsync(long orderId)
     {
         OrderId = orderId;
-        SurveyToDisplay = await _db.Surveys.Include(s => s.Questions)
-            .ThenInclude(q => q.Choices)
-            .Where(s => !s.TakenAt.HasValue)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(s => s.OrderId == orderId);
+        SurveyToDisplay = await _surveyService.FetchSurveyByOrderId(orderId);
 
         if (SurveyToDisplay == null)
         {
@@ -47,11 +47,7 @@ public class Display : PageModel
         OrderId = orderId;
     
       
-        SurveyToDisplay = await _db.Surveys.Include(s => s.Questions)
-            .ThenInclude(q => q.Choices)
-            .Where(s => !s.TakenAt.HasValue)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(s => s.OrderId == orderId);
+        SurveyToDisplay = await _surveyService.FetchSurveyByOrderId(orderId);
 
         if (SurveyToDisplay == null)
         {

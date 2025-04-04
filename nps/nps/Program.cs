@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using nps.Migrations.Data;
+using nps.Services.Survey;
 
 namespace nps;
 
@@ -24,6 +25,7 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
+        builder.Services.AddScoped<ISurveyService, SurveyService>();
         
 
         var app = builder.Build();
