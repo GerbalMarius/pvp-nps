@@ -17,5 +17,5 @@ public sealed class ResponseOption
 
     [Column("option_body")]
     [Required, MaxLength(100)]
-    public string OptionText { get; set; }
+    public required string OptionText { get; set; }
 }

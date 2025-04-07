@@ -1,16 +1,16 @@
-﻿@model nps.Models.SurveyQuestions.RatingQuestion
-<div id="question-@Model.Id">
-    <p class="quiz-question">@Model.QuestionText</p>
+﻿@model nps.Models.DTOS.QuestionSurveyPair<nps.Models.SurveyQuestions.RatingQuestion>
+<div id="question-@Model.Question.Id">
+    <p class="quiz-question">@Model.Question.QuestionText</p>
     <div class="quiz-rating-buttons">
-        @for (var i = 0; i < Model.MaxValue; i++)
+        @for (var i = 0; i < Model.Question.MaxValue; i++)
         {
             <button type="button"
                     class="rating-btn"
                     data-value="@(i + 1)"
-                    onclick="selectNPS(@(i + 1), 'selectedNps@(Model.Id)', @(Model.Id))">
+                    onclick="selectNPS(@(i + 1), 'selectedNps@(Model.Question.Id)', @(Model.Question.Id))">
                 @(i + 1)
             </button>
         }
     </div>
-    <input type="hidden" id="selectedNps@(Model.Id)" name="selectedNps@(Model.Id)" value=""/>
+    <input type="hidden" id="selectedNps@(Model.Question.Id)" name="SurveyDto.RatingAnswers[@Model.Question.Id]" value=""/>
 </div>
