@@ -15,7 +15,7 @@ public class Index : PageModel
     [BindProperty]
     public RegisterInfo RegisterData { get; set; } = new();
     
-    ILogger<Index> _logger;
+    private readonly ILogger<Index> _logger;
 
     public Index(ILogger<Index> logger)
     {
@@ -26,16 +26,7 @@ public class Index : PageModel
     {
         if (TempData["ModelStateErrors"] == null) return Page();
         
-        var errorsJson = TempData["ModelStateErrors"]?.ToString();
-        var errors = JsonSerializer.Deserialize<Dictionary<string, string[]>>(errorsJson!);
-
-        foreach (var error in errors)
-        {
-            foreach (var errorMessage in error.Value)
-            {
-                ModelState.AddModelError(error.Key, errorMessage);
-            }
-        }
+        PopulateErrors();
 
         return Page();
     }
@@ -48,28 +39,20 @@ public class Index : PageModel
         {
             ClearModelStateFor(key => !key.Contains("LoginData"));
 
-            if (!ModelState.IsValid)
-            {
-                TempData["ModelStateErrors"] = KeepErrors(ModelState);
-                return RedirectToPage("/Auth/Index", new { errorType = "Login" });
-            }
+            if (ModelState.IsValid) return Page();
             
-        }
-        else
-        {
-            
-            ClearModelStateFor(key => key.Contains("LoginData"));
+            TempData["ModelStateErrors"] = KeepErrors(ModelState);
+            return RedirectToPage("/Auth/Index", new { errorType = "Login" });
 
-            if (!ModelState.IsValid)
-            {
-                TempData["ModelStateErrors"] = KeepErrors(ModelState);
+        }
+
+        ClearModelStateFor(key => key.Contains("LoginData"));
+
+        if (ModelState.IsValid) return Page();
+            
+        TempData["ModelStateErrors"] = KeepErrors(ModelState);
                 
-                return RedirectToPage("/Auth/Index", new { errorType = "Register" });
-            }
-
-            
-        }
-        return Page();
+        return RedirectToPage("/Auth/Index", new { errorType = "Register" });
     }
 
     private void ClearModelStateFor(Func<string, bool> predicate)
@@ -87,6 +70,20 @@ public class Index : PageModel
             entry => entry.Value.Errors.Select(e => e.ErrorMessage).ToArray()
         );
         return JsonSerializer.Serialize(errors); 
+    }
+    
+    private void PopulateErrors()
+    {
+        var errorsJson = TempData["ModelStateErrors"]?.ToString();
+        var errors = JsonSerializer.Deserialize<Dictionary<string, string[]>>(errorsJson!);
+
+        foreach (var error in errors)
+        {
+            foreach (var errorMessage in error.Value)
+            {
+                ModelState.AddModelError(error.Key, errorMessage);
+            }
+        }
     }
    
 }

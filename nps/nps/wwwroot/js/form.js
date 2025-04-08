@@ -1,7 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
     const url = new URL(window.location.href);
-
-
     const params = new URLSearchParams(url.search);
     
     const errorType = params.get('errorType');
@@ -18,7 +16,7 @@
     
     if (errorType === "Register") {
         populateRegister();
-    }else {
+    } else {
         populateLogin();
     }
 
