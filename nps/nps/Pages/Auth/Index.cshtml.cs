@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -39,33 +38,41 @@ public class Index : PageModel
         {
             ClearModelStateFor(key => !key.Contains("LoginData"));
 
-            if (ModelState.IsValid) return Page();
-            
-            TempData["ModelStateErrors"] = KeepErrors(ModelState);
-            return RedirectToPage("/Auth/Index", new { errorType = "Login" });
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelStateErrors"] = KeepErrors(ModelState);
+                return RedirectToPage("/Auth/Index", new { errorType = "Login" });
+               
+            }
 
+            TempData["ModelStateErrors"] = null;
+            return Page();
         }
 
-        ClearModelStateFor(key => key.Contains("LoginData"));
+        ClearModelStateFor(key => !key.Contains("RegisterData"));
 
-        if (ModelState.IsValid) return Page();
-            
-        TempData["ModelStateErrors"] = KeepErrors(ModelState);
+        if (!ModelState.IsValid)
+        {
+            TempData["ModelStateErrors"] = KeepErrors(ModelState); 
+            return RedirectToPage("/Auth/Index", new { errorType = "Register" });
+        }
+        TempData["ModelStateErrors"] = null;
+        return Page();
                 
-        return RedirectToPage("/Auth/Index", new { errorType = "Register" });
     }
 
     private void ClearModelStateFor(Func<string, bool> predicate)
     {
         foreach (var key in ModelState.Keys.Where(predicate))
         {
+            _logger.LogInformation("{key}", key);
             ModelState.Remove(key);
         }
     }
 
-    private string KeepErrors(ModelStateDictionary dictionary)
+    private string KeepErrors(ModelStateDictionary modelState)
     {
-        var errors = dictionary.ToDictionary(
+        var errors = modelState.ToDictionary(
             entry => entry.Key,
             entry => entry.Value.Errors.Select(e => e.ErrorMessage).ToArray()
         );

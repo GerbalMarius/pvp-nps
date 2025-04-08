@@ -34,8 +34,19 @@
 							   asp-area="" asp-page="/UserFunctions/UserAddition">Employee registration</a>
 						</li>
 					</ul>
-					<a asp-page="/Login/Index" class="btn btn-outline-success me-2" style="font-weight: 700;">Login</a>
-					<a asp-page="/Index" class="btn btn-outline-danger me-2" style="font-weight: 700;">Logout</a>
+					@*<a asp-page="/Login/Index" class="btn btn-outline-success me-2" style="font-weight: 700;">Login</a>*@
+					@*<a asp-page="/Index" class="btn btn-outline-danger me-2" style="font-weight: 700;">Logout</a>*@
+					
+					<div class="dropdown" style="position: relative !important; left: -80px;">
+						<button onclick="toggleDropDown()">
+							<img src="account.svg" alt="account" class="account-icon">
+							<span class="arrow"><img src="arrow-sm-down.svg" alt="" style="width: 30px; height: 30px"></span>
+						</button>
+						<div class="dropdown-content" id="dropdownMenu">
+							<a asp-page="/Login/Index">Login</a>
+							<a asp-page="/Index">Logout</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</nav>
