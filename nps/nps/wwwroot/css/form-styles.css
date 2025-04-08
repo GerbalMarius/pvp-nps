@@ -162,9 +162,6 @@
     transform: scale(1.1);
 }
 
-
-
-
 input[type="date"] {
     background: linear-gradient(90deg, #2c8a6f, #2aaf2a);
     color: white;
@@ -179,7 +176,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /**/
-
 .login-form {
     background-color: var(--white-variant);
     padding: 40px;
@@ -255,18 +251,159 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 
-.forgot-password {
+.form-wrapper {
+    position: relative;
+    flex: 1;
+    min-height: 20rem;
+    transition: 0.3s ease-in-out;
+}
+
+.auth-form input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset;
+    -webkit-text-fill-color: #222;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.auth-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px 16px;
+}
+
+.auth-container {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 900px;
+    width: 100%;
+}
+
+.auth-sidebar {
+    background: var(--green-gradient);
+    color: white;
+    width: 300px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.auth-sidebar h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.auth-sidebar p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.auth-content {
+    flex: 1;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.slider-toggle {
+    display: flex;
+    position: relative;
+    background: #eee;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    height: 45px;
+}
+
+.slider-tab {
+    flex: 1;
     text-align: center;
-    display: block;
-    color: var(--turqoise-green);
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
+    line-height: 45px;
+    cursor: pointer;
+    font-weight: 600;
+    z-index: 2;
+    color: #2c8a6f;
+    position: relative;
     transition: color 0.3s ease-in-out;
 }
 
-.forgot-password:hover {
-    color: var(--light-green);
+.slider-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--green-gradient);
+    border-radius: 10px;
+    z-index: 1;
+    transition: left 0.4s ease;
+}
+
+.slider-tab.active {
+    color: white;
+}
+
+.form-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.auth-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+.auth-form.active-form {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.auth-input:focus {
+    border-color: #2aaf2a;
+    outline: none;
+    transform: scale(1.02);
+}
+
+.auth-submit {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: var(--green-gradient);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.auth-submit:hover {
+    background: var(--hover-gradient);
 }
 
 @media (max-width: 768px) {
@@ -275,5 +412,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
     .login-form {
         padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        width: 100%;
+        padding: 20px;
+        box-shadow: none;
     }
 }

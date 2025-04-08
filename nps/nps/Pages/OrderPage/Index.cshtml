@@ -6,7 +6,10 @@
 }
 
 <head>
-    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <title>@ViewData["Title"]</title>
 </head>
 
@@ -19,7 +22,7 @@
 <body onload="hideLoading()">
 <section class="content-section">
     <div class="container-fluid text-center" id="orderTable" style="display: none;">
-        <table class="custom-table">
+        <table class="system-table">
             <thead>
             <tr>
                 <th>Id</th>
