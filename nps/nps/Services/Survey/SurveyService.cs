@@ -1,3 +1,4 @@
+
 using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -24,10 +25,11 @@ public sealed class SurveyService : ISurveyService
         return await _dbContext.Surveys.FindAsync(surveyId);
     }
 
+
     public async Task<Models.SurveyQuestions.Survey?> GetSurveyByOrderNumber(string orderNumber, bool readOnly = false)
     {
-        var result =   _dbContext.Surveys
-            .Include(s => s.Orders)
+      return await _dbContext.Surveys
+            .Include(s => s.Orders) 
             .Include(s => s.Questions)
             .ThenInclude(q => q.Choices)
             .Where(s => !s.TakenAt.HasValue)

@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using nps.Models.DTOS;
+
 using nps.Services.Survey;
 
 namespace nps.Pages.Survey;
 
 public class Display : PageModel
 {
+
     private readonly ILogger<Display> _logger;
     private readonly ISurveyService _surveyService;
+    
     public Models.SurveyQuestions.Survey? SurveyToDisplay { get; set; }
     
     [BindProperty]
@@ -22,6 +25,7 @@ public class Display : PageModel
 
     public async Task<IActionResult> OnGetAsync(string orderNumber)
     {
+
         SurveyToDisplay = await _surveyService.GetSurveyByOrderNumber(orderNumber);
 
         if (SurveyToDisplay == null)
@@ -40,6 +44,7 @@ public class Display : PageModel
         _logger.LogWarning("{Survey}", SurveyDto);
 
         await _surveyService.SaveSurveyResponses(SurveyDto);
+
 
         if (SurveyToDisplay == null)
         {
