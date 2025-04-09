@@ -1,6 +1,8 @@
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using nps.Migrations.Data;
+using nps.Services.Order;
+using nps.Services.Question;
 using nps.Services.Survey;
 
 namespace nps;
@@ -25,7 +27,10 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
+        
         builder.Services.AddScoped<ISurveyService, SurveyService>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IQuestionService, QuestionService>();
         
 
         var app = builder.Build();

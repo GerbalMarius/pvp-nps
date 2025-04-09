@@ -30,8 +30,7 @@ public sealed class SurveyService : ISurveyService
             .Include(s => s.Orders)
             .Include(s => s.Questions)
             .ThenInclude(q => q.Choices)
-            .Where(s => !s.TakenAt.HasValue)
-            .Where(s => s.Orders.Any(o => o.Number == orderNumber))
+            .Where(s => s.Orders.Any(o => o.Number == orderNumber && o.HasSurvey))
             .AsSplitQuery();
 
         return readOnly ? await result.AsNoTracking().SingleOrDefaultAsync() : await result.SingleOrDefaultAsync();

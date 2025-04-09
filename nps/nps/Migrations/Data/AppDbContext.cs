@@ -52,15 +52,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 date => date!.Value.ToUniversalTime(),
                 date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
             );
-
-
-        modelBuilder.Entity<Survey>()
-            .Property(order => order.TakenAt)
-            .HasConversion
-            (
-                date => date.Value.ToUniversalTime(),
-                date => TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius"))
-            );
+        
         modelBuilder.Entity<Survey>()
             .Property(order => order.CreatedAt)
             .HasConversion

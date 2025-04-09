@@ -37,4 +37,10 @@ public static class Utils
 
         return Math.Round(promoterPercentage - detractorPercentage);
     }
+
+    public static IEnumerable<TResult> SelectIfPossible<T, TResult>(this IEnumerable<T> source, Predicate<T> predicate,
+        Func<T, TResult> selector)
+    {
+        return from item in source where predicate(item) select selector(item);
+    }
 }

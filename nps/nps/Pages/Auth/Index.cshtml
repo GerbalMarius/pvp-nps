@@ -33,8 +33,8 @@
                     @Html.AntiForgeryToken()
                     <div asp-validation-summary="All" class="text-danger text-center"></div>
                     <input type="hidden" name="FormType" value="Login"/>
-                    <input asp-for="LoginData.Email" placeholder="Enter your email" class="auth-input"/>
-                    <input asp-for="LoginData.Password" type="password" placeholder="Enter your password" class="auth-input"/>
+                    <input asp-for="LoginData.Email" placeholder="Enter your email" class="auth-input" maxlength="100"/>
+                    <input asp-for="LoginData.Password" type="password" placeholder="Enter your password" class="auth-input" maxlength="80"/>
                     <button type="submit" class="auth-submit">Login</button>
                 </form>
 
@@ -42,10 +42,10 @@
                     @Html.AntiForgeryToken()
                     <div asp-validation-summary="All" class="text-danger text-center"></div>
                     <input type="hidden" name="FormType" value="Register"/>
-                    <input asp-for="RegisterData.Name" placeholder="Enter your name" class="auth-input"/>
-                    <input asp-for="RegisterData.LastName" placeholder="Enter your last name" class="auth-input"/>
-                    <input asp-for="RegisterData.Email" placeholder="Enter your email" class="auth-input"/>
-                    <input asp-for="RegisterData.Password" type="password" placeholder="Enter password" class="auth-input"/>
+                    <input asp-for="RegisterData.Name" placeholder="Enter your name" class="auth-input" maxlength="100"/>
+                    <input asp-for="RegisterData.LastName" placeholder="Enter your last name" class="auth-input" maxlength="80"/>
+                    <input asp-for="RegisterData.Email" placeholder="Enter your email" class="auth-input" maxlength="100"/>
+                    <input asp-for="RegisterData.Password" type="password" placeholder="Enter password" class="auth-input" maxlength="80"/>
                     <button type="submit" class="auth-submit">Register</button>
                 </form>
             </div>

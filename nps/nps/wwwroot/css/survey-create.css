@@ -1,0 +1,52 @@
+﻿:root {
+    --form-border: #e0e0e0;
+    --form-highlight: #2aaf2a;
+    --form-shadow: rgba(0, 0, 0, 0.1);
+}
+
+.survey-form {
+    background: white;
+    max-width: 900px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--form-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.survey-title {
+    text-align: center;
+    color: var(--form-highlight);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--form-highlight);
+}
+
+.survey-question-block {
+    border: 2px solid var(--form-border);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 2px solid var(--form-border);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--form-highlight);
+    box-shadow: 0 0 0 0.2rem rgba(42, 175, 42, 0.2);
+}

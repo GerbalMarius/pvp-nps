@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true" />
     <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true" />
     <link rel="stylesheet" href="@Url.Content("~/css/vertical-layout.css")" asp-append-version="true">
+    <link rel="stylesheet" href="@Url.Content("~/css/survey-create.css")" asp-append-version="true">
+    <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true">
 </head>
 <body onclick="shrinkNavBar('navbar')">
 <div class="vertical-nav" id="navbar" onclick="stopClickPropagation()">
@@ -37,7 +39,8 @@
 
 
 
-<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
+<script src="@Url.Content("~/js/survey_create.js")" asp-append-version="true"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
