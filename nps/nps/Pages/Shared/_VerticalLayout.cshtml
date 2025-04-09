@@ -19,7 +19,11 @@
         <span class="nav-icon"><img src="@Url.Content("~/list-check.svg")" class="menu-img" alt="Orders"></span>
         <span class="nav-text">Orders</span>
     </a>
-    <a asp-page="/Index" class="vertical-nav-item" style="color: var(--white-variant); position: relative; top: 42rem;">
+    <a asp-page="/Dashboard/CreateSurvey" class="vertical-nav-item @CheckActivePage("/Dashboard/CreateSurvey")" style="color: var(--white-variant)">
+        <span class="nav-icon"><img src="@Url.Content("~/add-circle.svg")" alt="create" class="menu-img"></span>
+        <span class="nav-text">Create Survey</span>
+    </a>
+    <a asp-page="/Index" class="vertical-nav-item" style="color: var(--white-variant); position: relative;">
         <span class="nav-icon"><img src="@Url.Content("~/exit.svg")" class="menu-img" alt="Exit"></span>
         <span class="nav-text">Exit</span>
     </a>
