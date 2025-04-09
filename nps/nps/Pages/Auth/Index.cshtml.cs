@@ -8,6 +8,8 @@ namespace nps.Pages.Auth;
 
 public class Index : PageModel
 {
+    private const string Errors = "ModelStateErrors";
+    
     [BindProperty]
     public LoginInfo LoginData { get; set; } = new();
     
@@ -23,7 +25,7 @@ public class Index : PageModel
     
     public IActionResult OnGet()
     {
-        if (TempData["ModelStateErrors"] == null) return Page();
+        if (TempData[Errors] == null) return Page();
         
         PopulateErrors();
 
@@ -36,32 +38,32 @@ public class Index : PageModel
 
         if (formType == "Login")
         {
-            ClearModelStateFor(key => !key.Contains("LoginData"));
+            ClearModelStateIf(key => !key.Contains(nameof(LoginData)));
 
             if (!ModelState.IsValid)
             {
-                TempData["ModelStateErrors"] = KeepErrors(ModelState);
+                TempData[Errors] = KeepErrors(ModelState);
                 return RedirectToPage("/Auth/Index", new { errorType = "Login" });
                
             }
 
-            TempData["ModelStateErrors"] = null;
+            TempData[Errors] = null;
             return Page();
         }
 
-        ClearModelStateFor(key => !key.Contains("RegisterData"));
+        ClearModelStateIf(key => !key.Contains(nameof(RegisterData)));
 
         if (!ModelState.IsValid)
         {
-            TempData["ModelStateErrors"] = KeepErrors(ModelState); 
+            TempData[Errors] = KeepErrors(ModelState); 
             return RedirectToPage("/Auth/Index", new { errorType = "Register" });
         }
-        TempData["ModelStateErrors"] = null;
+        TempData[Errors] = null;
         return Page();
                 
     }
 
-    private void ClearModelStateFor(Func<string, bool> predicate)
+    private void ClearModelStateIf(Func<string, bool> predicate)
     {
         foreach (var key in ModelState.Keys.Where(predicate))
         {
@@ -81,7 +83,7 @@ public class Index : PageModel
     
     private void PopulateErrors()
     {
-        var errorsJson = TempData["ModelStateErrors"]?.ToString();
+        var errorsJson = TempData[Errors]?.ToString();
         var errors = JsonSerializer.Deserialize<Dictionary<string, string[]>>(errorsJson!);
 
         foreach (var error in errors)
