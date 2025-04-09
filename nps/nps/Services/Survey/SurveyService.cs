@@ -28,7 +28,7 @@ public sealed class SurveyService : ISurveyService
 
     public async Task<Models.SurveyQuestions.Survey?> GetSurveyByOrderNumber(string orderNumber, bool readOnly = false)
     {
-      return await _dbContext.Surveys
+        var result =  _dbContext.Surveys
             .Include(s => s.Orders) 
             .Include(s => s.Questions)
             .ThenInclude(q => q.Choices)
@@ -36,6 +36,7 @@ public sealed class SurveyService : ISurveyService
             .Where(s => s.Orders.Any(o => o.Number == orderNumber))
             .AsSplitQuery();
 
+        
         return readOnly ? await result.AsNoTracking().SingleOrDefaultAsync() : await result.SingleOrDefaultAsync();
     }
 
