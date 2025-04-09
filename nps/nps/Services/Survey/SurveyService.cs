@@ -35,6 +35,12 @@ public sealed class SurveyService : ISurveyService
 
         return readOnly ? await result.AsNoTracking().SingleOrDefaultAsync() : await result.SingleOrDefaultAsync();
     }
+    
+    // Create survey for postAsync hook
+    public Task CreateSurvey(SurveyCreationDto survey)
+    {
+        return Task.CompletedTask;
+    }
 
     public async Task<int> SaveSurveyResponses(SurveyDto responses)
     {

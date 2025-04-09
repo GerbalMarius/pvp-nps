@@ -10,6 +10,10 @@ public interface ISurveyService
     
      Task<Survey?> GetSurveyByOrderNumber(string orderNumber, bool readOnly = false);
      
+     [Transactional]
      Task<int> SaveSurveyResponses(SurveyDto responses);
+     
+     [Transactional]
+     Task CreateSurvey(SurveyCreationDto survey);
 
 }

@@ -6,7 +6,8 @@ namespace nps.Models.DTOS;
 public record SurveyCreationDto
 {
     [MaxLength(100)]
-    public string? Name { get; init; }
+    [Required(ErrorMessage = "Survey name is required")]
+    public string Name { get; init; } = string.Empty;
 
     public List<QuestionDto> Questions { get; init; } = [];
 

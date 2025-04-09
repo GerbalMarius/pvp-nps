@@ -1,4 +1,5 @@
 @page
+@using System.Text
 @using System.Text.Json
 @using nps.Models.SurveyQuestions
 @model CreateSurvey
@@ -10,14 +11,15 @@
 <h1 class="survey-title">Create New Survey</h1>
 
 <form method="post" class="survey-form">
+    <div asp-validation-summary="All" class="text-danger text-center"></div>
     <div class="form-group">
         <label asp-for="SurveyForm.Name" class="form-label">Survey Name</label>
         <input asp-for="SurveyForm.Name" class="form-control" maxlength="100"/>
     </div>
 
     <div class="form-group">
-        <label for="OrderNumber" class="form-label">Select Order</label>
-        <select class="form-select" name="OrderNumber" id="OrderNumber">
+        <label asp-for="OrderNumber" class="form-label">Select Order</label>
+        <select class="form-select" asp-for="OrderNumber" id="OrderNumber">
             <option value="" disabled selected>Select an order...</option>
             @foreach (var number in Model.OrderNumbers)
             {
@@ -39,7 +41,8 @@
     var serializedData = JsonSerializer.Serialize(Model.ExistingQuestions
         .Where(q => q is not RatingQuestion)
         .Select(q => new { id = q.Id, text = q.QuestionText }));
-        var encodedData = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(serializedData));
+    
+    var encodedData = Convert.ToBase64String(Encoding.UTF8.GetBytes(serializedData));
 }
 
 @section Scripts {

@@ -19,6 +19,7 @@
             <tr>
                 <th>Id</th>
                 <th>Number</th>
+                <th>Client</th>
                 <th>Order Date</th>
                 <th>Delivery Date</th>
                 <th>Attached Survey</th>
@@ -30,6 +31,7 @@
                 <tr>
                     <td>@order.Id</td>
                     <td>@order.Number</td>
+                    <td>@order.ClientEmail</td>
                     <td>@order.OrderDate</td>
                     <td>@order.DeliveryDate</td>
                     @if (order.HasSurvey)
