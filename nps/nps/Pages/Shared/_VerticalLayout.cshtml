@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="@Url.Content("css/style.css")">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/nps.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/form-styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/css/vertical-layout.css")" asp-append-version="true">
 </head>
-
 <body onclick="shrinkNavBar('navbar')">
+<div class="vertical-nav" id="navbar" onclick="stopClickPropagation()">
+    <button class="burger-btn" onclick="toggleNavBar('navbar')">
+        <img src="@Url.Content("~/burger-simple.svg")" alt="Menu" style="width: 30px; height: 30px;">
+    </button>
+    <a asp-page="/Dashboard/Orders" class="vertical-nav-item @CheckActivePage("/Dashboard/Orders")" style="color: var(--white-variant)">
+        <span class="nav-icon"><img src="@Url.Content("~/list-check.svg")" class="menu-img" alt="Orders"></span>
+        <span class="nav-text">Orders</span>
+    </a>
+    <a asp-page="/Index" class="vertical-nav-item" style="color: var(--white-variant); position: relative; top: 42rem;">
+        <span class="nav-icon"><img src="@Url.Content("~/exit.svg")" class="menu-img" alt="Exit"></span>
+        <span class="nav-text">Exit</span>
+    </a>
+</div>
 
 <div class="container">
     <main role="main" class="pb-3">
@@ -19,20 +31,16 @@
     </main>
 </div>
 
-<div class="vertical-nav" id="navbar" onclick="stopClickPropagation()">
-    <button class="burger-btn" onclick="toggleNavBar('navbar')">
-        <img src="burger-simple.svg" alt="Menu" style="width: 30px; height: 30px;">
-    </button>
-</div>
 
-<script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
 
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 
-@{
+@functions {
     string CheckActivePage(string routeName)
     {
         return ViewContext.RouteData.Values["Page"]?.ToString() == routeName ? "active" : "";

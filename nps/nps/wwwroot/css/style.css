@@ -22,9 +22,6 @@ html, body{
     display: flex;
     flex-direction: column;
 }
-.content{
-    flex: 1 !important;
-}
 
 
 header{
@@ -54,6 +51,7 @@ footer {
     overflow: hidden;
     transition: width .3s ease-in-out;
     position: relative;
+    border-radius: 0 10px 10px 0;
 }
 .vertical-nav.expanded{
     width: 15rem;
@@ -156,7 +154,7 @@ footer {
 .dropdown-content {
     display: none;
     position: absolute;
-    background: var(--white-variant);
+    background: white !important;
     min-width: 150px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;

@@ -1,0 +1,60 @@
+﻿@page
+@model nps.Pages.Dashboard.Orders
+
+@{
+    Layout = "Shared/_VerticalLayout";
+    ViewData["Title"] = "Orders";
+}
+<h1 class="text-center">Orders</h1>
+
+<div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p style="font-weight: 600;">Loading orders...</p>
+</div>
+
+<section class="content-section">
+    <div class="container-fluid text-center" id="orderTable" style="display: none;">
+        <table class="system-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Order Date</th>
+                <th>Delivery Date</th>
+                <th>Attached Survey</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var order in Model.OrderData)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Number</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.DeliveryDate</td>
+                    @if (order.HasSurvey)
+                    {
+                        <td><a asp-page="/Survey/Display" asp-route-orderNumber="@order.Number" class="login-btn" style="text-decoration: none; color: var(--white-variant) !important;">View attached survey.</a></td>
+
+                    }
+                    else
+                    {
+                        <td class="text text-danger">No corresponding survey attached.</td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("orderTable").style.display = "block";
+            }, 500);
+        })
+</script>
+}

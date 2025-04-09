@@ -15,7 +15,7 @@ public sealed class Order
 
     [Column("order_number")]
     [MaxLength(60), Required]
-    public string? Number { get; set; }
+    public required string Number { get; set; }
     
     [Column("order_date")]
     [Required]

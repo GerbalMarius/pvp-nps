@@ -1,0 +1,17 @@
+﻿html, body {
+    font-family: "Roboto", sans-serif !important;
+    height: 100% !important;
+    margin: 0;
+}
+
+body {
+    display: flex !important;
+    flex-direction: row !important;
+}
+.content{
+    flex: 1 !important;
+}
+.container {
+    flex: 1;
+    padding: 2rem;
+}
