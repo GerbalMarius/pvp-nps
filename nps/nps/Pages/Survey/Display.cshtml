@@ -1,4 +1,5 @@
 ﻿@page
+@using nps.Models.DTOS
 @using nps.Models.SurveyQuestions
 @model Display
 
@@ -33,19 +34,19 @@
         switch (question)
         {
             case RatingQuestion ratingQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_RatingQuestion", ratingQuestion)
+                @await Html.PartialAsync("PartialQuestionViews/_RatingQuestion", new QuestionSurveyPair<RatingQuestion>(ratingQuestion, Model.SurveyDto))
                 break;
             case TextQuestion textQuestion:
                 @await Html.PartialAsync("PartialQuestionViews/_TextQuestion", textQuestion)
                 break;
             case CheckBoxQuestion checkBoxQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_CheckBoxQuestion", checkBoxQuestion)
+                @await Html.PartialAsync("PartialQuestionViews/_CheckBoxQuestion", new QuestionSurveyPair<CheckBoxQuestion>(checkBoxQuestion, Model.SurveyDto))
                 break;
             case DropDownQuestion dropDownQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_DropDownQuestion", dropDownQuestion)
+                @await Html.PartialAsync("PartialQuestionViews/_DropDownQuestion", new QuestionSurveyPair<DropDownQuestion>(dropDownQuestion, Model.SurveyDto))
                 break;
             case SingleChoiceQuestion singleChoiceQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_SingleChoiceQuestion", singleChoiceQuestion)
+                @await Html.PartialAsync("PartialQuestionViews/_SingleChoiceQuestion", new QuestionSurveyPair<SingleChoiceQuestion>(singleChoiceQuestion, Model.SurveyDto))
                 break;
         }
     }

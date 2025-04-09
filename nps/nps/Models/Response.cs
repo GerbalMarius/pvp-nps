@@ -12,7 +12,7 @@ public sealed class Response
     public long Id { get; set; }
     
     [Column("question_id")]
-    public long QuestionId { get; set; }
+    public required long QuestionId { get; set; }
 
     public Question Question { get; set; }  
     
@@ -22,7 +22,7 @@ public sealed class Response
     [Column("number_rating")]
     public int? NumberRating { get; set; }
 
-    [Column("repsponse_date")]
+    [Column("response_date")]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime? ResponseDate { get; set; }
 

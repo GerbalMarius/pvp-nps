@@ -18,28 +18,35 @@
 
 }
 
-//used for expansion of navbar through clicking of burger menu.
-function toggleNavBar(event, navBarId) {
-    event.stopPropagation();
+function toggleNavBar(navBarId) {
+    const event = window.event;
+    if (event) event.stopPropagation();
     document.getElementById(navBarId).classList.toggle('expanded');
 }
-//if clicked outside of menu, shrink it to show only icons.
-function shrinkNavBar(event, navBarId) {
-    let navBar = document.getElementById(navBarId);
-    if (navBar.classList.contains('expanded')) {
+
+function shrinkNavBar(navBarId) {
+    const navBar = document.getElementById(navBarId);
+    if (navBar && navBar.classList.contains('expanded')) {
         navBar.classList.remove('expanded');
     }
 }
-//opening of dropdown
-function toggleDropDown() {
-    let dropdown = document.querySelector('.dropdown');
-    dropdown.classList.toggle('active');
+
+function stopClickPropagation() {
+    const event = window.event;
+    if (event) event.stopPropagation();
 }
-//if clicked of close.
-document.addEventListener('click', event => {
-    let dropdown = document.querySelector('.dropdown');
-    if (!dropdown.contains(event.target)) {
+
+function toggleDropDown() {
+    const dropdown = document.querySelector('.dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+    }
+}
+
+document.addEventListener('click', () => {
+    const event = window.event;
+    const dropdown = document.querySelector('.dropdown');
+    if (dropdown && !dropdown.contains(event.target)) {
         dropdown.classList.remove('active');
     }
 });
-

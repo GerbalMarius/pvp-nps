@@ -16,22 +16,22 @@ public sealed class Worker
     [Required]
     [Column("email")]
     [MaxLength(100)]
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
     [Required]
     [Column("password")]
     [MaxLength(80)]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
     [Required]
     [Column("name")]
     [MaxLength(100)]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [Required]
     [Column("last_name")]
     [MaxLength(80)]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
 
     public ICollection<Role> Roles { get; set; } = [];
 

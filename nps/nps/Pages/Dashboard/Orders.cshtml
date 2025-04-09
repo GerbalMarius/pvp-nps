@@ -1,25 +1,17 @@
 ﻿@page
-@model nps.Pages.OrderPage.Index
+@model nps.Pages.Dashboard.Orders
 
 @{
-    ViewData["Title"] = "Order Page";
+    Layout = "Shared/_VerticalLayout";
+    ViewData["Title"] = "Orders";
 }
-
-<head>
-    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true"/>
-    <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true"/>
-    <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <title>@ViewData["Title"]</title>
-</head>
-
+<h1 class="text-center">Orders</h1>
 
 <div id="loading" class="loading-container">
     <div class="spinner"></div>
     <p style="font-weight: 600;">Loading orders...</p>
 </div>
 
-<body onload="hideLoading()">
 <section class="content-section">
     <div class="container-fluid text-center" id="orderTable" style="display: none;">
         <table class="system-table">
@@ -55,15 +47,14 @@
         </table>
     </div>
 </section>
-</body>
 
 @section Scripts {
     <script>
-    function hideLoading() {
-        setTimeout(() => {
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("orderTable").style.display = "block";
-        }, 500);
-    }
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("orderTable").style.display = "block";
+            }, 500);
+        })
 </script>
 }

@@ -1,11 +1,11 @@
-﻿@model nps.Models.SurveyQuestions.CheckBoxQuestion
-<div id="question-@Model.Id">
-    <p class="quiz-question">@Model.QuestionText</p>
+﻿@model nps.Models.DTOS.QuestionSurveyPair<nps.Models.SurveyQuestions.CheckBoxQuestion>
+<div id="question-@Model.Question.Id">
+    <p class="quiz-question">@Model.Question.QuestionText</p>
     <div class="quiz-options">
-        @foreach (var option in Model.Choices)
+        @foreach (var option in Model.Question.Choices)
         {
             <label class="quiz-option">
-                <input type="checkbox" name="Buffer" value="@option.Text"> @option.Text
+                <input type="checkbox" name="SurveyDto.CheckBoxAnswers[@Model.Question.Id]" value="@option.Text"> @option.Text
             </label>
         }
     </div>

@@ -6,29 +6,35 @@ public static class SessionExtensions
 {
     public static void Add<T>(this ISession session, string key, T value)
     {
-        session.SetString(key, JsonSerializer.Serialize(value));
+        session.Set(key, JsonSerializer.SerializeToUtf8Bytes(value));
     }
 
     public static T? Get<T>(this ISession session, string key)
     {
-        var value = session.GetString(key);
-        if (value == null)
+        var value = session.Get(key);
+        if (value is null)
         {
             throw new KeyNotFoundException($"The given {key} was not present in the session.");
         }
         return JsonSerializer.Deserialize<T>(value);
     }
 
-    public static bool ContainsKey<T>(this ISession session, string key)
+    public static bool ContainsKey(this ISession session, string key)
     {
-        try
+        return session.Get(key) != null;
+    }
+
+    public static bool TryGetValue<T>(this ISession session, string key, out T value)
+    {
+        var bytes = session.Get(key);
+
+        if (bytes is null || bytes.Length == 0)
         {
-            _ = session.Get<T>(key);
-            return true;
-        }
-        catch (KeyNotFoundException)
-        {
+            value = default!;
             return false;
         }
+        
+        value = JsonSerializer.Deserialize<T>(bytes)!;
+        return true;
     }
 }
