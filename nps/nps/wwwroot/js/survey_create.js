@@ -1,7 +1,7 @@
 ﻿let allExistingQuestions = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-    allExistingQuestions = JSON.parse(atob(existingQuestions)); // from Razor-encoded data
+    allExistingQuestions = JSON.parse(atob(dataHash)); // from Razor-encoded data
     addRatingQuestion();
 });
 
@@ -78,18 +78,23 @@ function refreshExistingQuestionOptions() {
     document.querySelectorAll('.existing-question-select').forEach(select => {
         const currentValue = select.value;
 
-        // Get all selected IDs excluding the one in this select
-        const selectedIds = Array.from(document.querySelectorAll('.existing-question-select'))
-            .filter(s => s !== select)
-            .map(s => s.value)
-            .filter(Boolean);
+        
+        const selectedIds = Array.from(document.querySelectorAll('.survey-question-block'))
+            .filter(block => {
+                const cb = block.querySelector('.form-check-input[type="checkbox"]');
+                const isActive = cb && cb.checked;
+                const s = block.querySelector('.existing-question-select');
+                return isActive && s !== select && s.value;
+            })
+            .map(block => block.querySelector('.existing-question-select').value);
 
-        select.innerHTML = ['<option value="" disabled>-- Select --</option>']
+        
+        select.innerHTML = ['<option value="" disabled selected>-- Select --</option>']
             .concat(
                 allExistingQuestions.map(q => {
-                    const isDisabled = selectedIds.includes(String(q.id));
-                    const isSelected = String(q.id) === currentValue;
-                    return `<option value="${q.id}" ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}>${q.text}</option>`;
+                    const isSelectedElsewhere = selectedIds.includes(String(q.id));
+                    const isCurrent = String(q.id) === currentValue;
+                    return `<option value="${q.id}" ${isCurrent ? 'selected' : ''} ${isSelectedElsewhere ? 'disabled' : ''}>${q.text}</option>`;
                 })
             ).join('');
     });
@@ -107,7 +112,6 @@ function toggleExisting(checkbox) {
     const newSection = block.querySelector(".new-question-section");
     const index = block.getAttribute("data-index");
 
-    // Remove old hidden input if any
     block.querySelectorAll(`input[name="SurveyForm.Questions[${index}].UseExisting"]`).forEach(el => el.remove());
 
     if (checkbox.checked) {
@@ -117,11 +121,21 @@ function toggleExisting(checkbox) {
         hidden.value = "true";
         block.appendChild(hidden);
 
+        const select = block.querySelector('.existing-question-select');
+        if (select) {
+            select.value = '';
+        }
+
         existingSection.classList.remove("d-none");
         newSection.classList.add("d-none");
 
         setTimeout(refreshExistingQuestionOptions, 0);
     } else {
+        const select = block.querySelector('.existing-question-select');
+        if (select) {
+            select.value = '';
+        }
+
         existingSection.classList.add("d-none");
         newSection.classList.remove("d-none");
 

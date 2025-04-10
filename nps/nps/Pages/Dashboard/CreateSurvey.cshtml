@@ -51,7 +51,7 @@
             <select class="form-select" asp-for="OrderNumber">
                 @if (Model.OrderNumbers.Count == 0)
                 {
-                    <option value="" disabled selected> No available orders.</option>
+                    <option value="" disabled selected class="text-danger"> No available orders.</option>
                 }
                 else
                 {
@@ -69,39 +69,40 @@
 </div>
 
 <div id="new-survey-section">
-<form method="post" class="survey-form">
-    <div asp-validation-summary="All" class="text-danger text-center"></div>
-    <div class="form-group">
-        <label asp-for="SurveyForm.Name" class="form-label">Survey Name</label>
-        <input asp-for="SurveyForm.Name" class="form-control" maxlength="100"/>
-    </div>
+    <form method="post" class="survey-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
+        <div class="form-group">
+            <label asp-for="SurveyForm.Name" class="form-label">Survey Name</label>
+            <input asp-for="SurveyForm.Name" class="form-control" maxlength="100"/>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="OrderNumber" class="form-label">Select Order</label>
-        <select class="form-select" asp-for="OrderNumber" id="OrderNumber">
-            @if (Model.OrderNumbers.Count == 0)
-            {
-                <option value="" disabled selected> No available orders.</option>
-            }
-            else
-            {
-                <option value="" disabled selected>Select an order...</option>
-                foreach (var number in Model.OrderNumbers)
+        <div class="form-group">
+            <label asp-for="OrderNumber" class="form-label">Select Order</label>
+            <select class="form-select" asp-for="OrderNumber" id="OrderNumber">
+                @if (Model.OrderNumbers.Count == 0)
                 {
-                    <option value="@number">@number</option>
+                    <option value="" disabled selected class="text-danger"> No available orders.</option>
                 }
-            }
-        </select>
-    </div>
+                else
+                {
+                    <option value="" disabled selected>Select an order...</option>
+                    foreach (var number in Model.OrderNumbers)
+                    {
+                        <option value="@number">@number</option>
+                    }
+                }
+            </select>
+        </div>
 
-    <h4 class="section-title">Questions</h4>
-    <div id="questions-container"></div>
+        <h4 class="section-title">Questions</h4>
+        <div id="questions-container"></div>
 
-    <button type="button" class="quiz-submit" onclick="addQuestion()">+ Add Question
-    </button>
-    <br/>
-    <button type="submit" class="btn btn-success">Create Survey</button>
-</form>
+        <button type="button" class="quiz-submit" onclick="addQuestion()">+ Add Question
+        </button>
+        <br/>
+        <button type="submit" class="btn btn-success">Create Survey</button>
+    </form>
 </div>
 
 
@@ -109,6 +110,6 @@
     <partial name="_ValidationScriptsPartial"/>
 
     <script>
-        const existingQuestions = '@encodedData';
+        const dataHash = '@encodedData';
     </script>
 }

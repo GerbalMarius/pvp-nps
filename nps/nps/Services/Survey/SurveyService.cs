@@ -110,7 +110,11 @@ public sealed class SurveyService : ISurveyService
             QuestionType.SingleChoice => new SingleChoiceQuestion
             {
                 QuestionText = q.QuestionText!,
-                MaxOptions = q.MaxOptions ?? 2
+                MaxOptions = q.MaxOptions ?? 2,
+                Choices = Utils.ExtractChoices(q).Select(ch => new AnswerChoice
+                {
+                    Text = ch
+                }).ToList()
             },
             QuestionType.Rating => new RatingQuestion
             {
