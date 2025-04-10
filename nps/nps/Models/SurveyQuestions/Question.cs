@@ -1,25 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Html;
 
 namespace nps.Models.SurveyQuestions;
 
 [Table("questions")]
-public sealed class Question
+public abstract class Question
 {
     [Key, Column("question_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
     
-    [Column("body", TypeName = "TEXT")]
-    public string Body { get; set; } = string.Empty;
-    
-    [Column("q_type")] 
-    public long QuestionTypeId { get; set; }
+    [Column("question_text"), Required]
+    [MaxLength(120)]
+    public required string QuestionText { get; set; }
 
-    public QuestionType Type { get; set; }
+    public ICollection<Response> Responses { get; set; } = [];
 
-    [Column("survey_id")]
-    public long SurveyId { get; set; }
+    public ICollection<Survey> Surveys { get; set; } = [];
     
-    public Survey Survey { get; set; }
+    public ICollection<AnswerChoice> Choices { get; set; } = [];
 }

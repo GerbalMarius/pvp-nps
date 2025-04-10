@@ -1,0 +1,11 @@
+﻿@model nps.Models.DTOS.QuestionSurveyPair<nps.Models.SurveyQuestions.DropDownQuestion>
+<div id="question-@Model.Question.Id">
+    <p class="quiz-question">@Model.Question.QuestionText</p>
+    <select class="quiz-dropdown" name="SurveyDto.DropdownAnswers[@Model.Question.Id]" id="@Model.Question.Id">
+        <option value="" disabled selected>Select an option...</option>
+        @foreach (var choice in Model.Question.Choices)
+        {
+            <option value="@choice.Text">@choice.Text</option>
+        }
+    </select>
+</div>

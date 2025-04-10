@@ -1,14 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+using nps.Models.SurveyQuestions;
 
 namespace nps.Models;
 
 [Table("orders")]
+[Index(nameof(Number), IsUnique = true)]
 public sealed class Order
 {
     [Key, Column("order_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
+
+    [Column("order_number")]
+    [MaxLength(60), Required]
+    public required string Number { get; set; }
     
     [Column("order_date")]
     [Required]
@@ -16,13 +23,23 @@ public sealed class Order
     
     [Column("delivery_date")]
     [Required]
-    public DateTime DeliveryDate { get; set; }
+    public DateTime? DeliveryDate { get; set; }
+
+    [NotMapped]
+    public bool HasSurvey  => SurveyId.HasValue;
     
-    [Column("user_id")]
+    [Column("worker_id")]
+    public long? WorkerId { get; set; }
+    
+    public Worker Worker { get; set; }
+
+
+    [Column("client_email"), MaxLength(100)]
     [Required]
-    public long UserId { get; set; }
+    public required string ClientEmail { get; set; }
+
+    public long? SurveyId { get; set; }
     
-    
-    public User User { get; set; }
+    public Survey? Survey { get; set; }
     
 }

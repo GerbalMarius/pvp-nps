@@ -1,0 +1,57 @@
+﻿@page
+@model nps.Pages.Auth.Index
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Authentication";
+}
+
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-sidebar" id="formLabel">
+            <h2 id="formHeading">Welcome Back</h2>
+            <p id="formSub">Log in to access your dashboard</p>
+        </div>
+        <div class="auth-content">
+            <div class="slider-toggle">
+                <div class="slider-tab active" id="loginTab">Login</div>
+                <div class="slider-tab" id="registerTab">Register</div>
+                <div class="slider-indicator" id="sliderIndicator"></div>
+            </div>
+
+            <div class="form-wrapper" id="wrapper">
+                <form method="post" id="loginForm" class="auth-form active-form">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="text-danger text-center"></div>
+                    <input type="hidden" name="FormType" value="Login"/>
+                    <input asp-for="LoginData.Email" placeholder="Enter your email" class="auth-input" maxlength="100"/>
+                    <input asp-for="LoginData.Password" type="password" placeholder="Enter your password" class="auth-input" maxlength="80"/>
+
+                    <button type="submit" class="auth-submit">Login</button>
+                </form>
+
+                <form method="post" id="registerForm" class="auth-form">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="text-danger text-center"></div>
+                    <input type="hidden" name="FormType" value="Register"/>
+                    <input asp-for="RegisterData.Name" placeholder="Enter your name" class="auth-input" maxlength="100"/>
+                    <input asp-for="RegisterData.LastName" placeholder="Enter your last name" class="auth-input" maxlength="80"/>
+                    <input asp-for="RegisterData.Email" placeholder="Enter your email" class="auth-input" maxlength="100"/>
+                    <input asp-for="RegisterData.Password" type="password" placeholder="Enter password" class="auth-input" maxlength="80"/>
+                    <button type="submit" class="auth-submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/js/form.js")" asp-append-version="true"></script>
+</body>

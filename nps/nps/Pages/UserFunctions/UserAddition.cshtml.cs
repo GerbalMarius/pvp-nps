@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using nps.Models;
+using nps.Models.DTOS;
 
 namespace nps.Pages.UserFunctions
 {

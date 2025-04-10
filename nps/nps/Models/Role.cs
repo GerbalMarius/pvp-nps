@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace nps.Models;
 
 [Table("roles")]
+[Index(nameof(Name), IsUnique = true)]
 public sealed class Role
 {
     [Key, Column("id")]
@@ -12,8 +14,8 @@ public sealed class Role
     
     [Required, Column("name")]
     [MaxLength(60)]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
-    public ICollection<User> Users { get; set; } = [];
+    public ICollection<Worker> Workers { get; set; } = [];
 
 }

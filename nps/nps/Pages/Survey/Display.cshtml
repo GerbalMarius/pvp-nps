@@ -1,0 +1,55 @@
+﻿@page
+@using nps.Models.DTOS
+@using nps.Models.SurveyQuestions
+@model Display
+
+@{
+    ViewData["Title"] = "Survey for order";
+    var success = Request.Query["success"];
+    Layout = null;
+}
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/form-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
+</head>
+
+<body>
+<form method="post" class="quiz-form">
+    @Html.AntiForgeryToken()
+    <h1 class="quiz-title">@Model.SurveyToDisplay?.Name</h1>
+    
+    @if (!string.IsNullOrEmpty(success) && success == "True")
+    {
+        <div class="alert alert-success">
+            Your responses have been submitted successfully!
+        </div>
+    }
+    @foreach (var question in Model.SurveyToDisplay!.Questions)
+    {
+        switch (question)
+        {
+            case RatingQuestion ratingQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_RatingQuestion", new QuestionSurveyPair<RatingQuestion>(ratingQuestion, Model.SurveyResponseDto))
+                break;
+            case TextQuestion textQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_TextQuestion", textQuestion)
+                break;
+            case CheckBoxQuestion checkBoxQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_CheckBoxQuestion", new QuestionSurveyPair<CheckBoxQuestion>(checkBoxQuestion, Model.SurveyResponseDto))
+                break;
+            case DropDownQuestion dropDownQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_DropDownQuestion", new QuestionSurveyPair<DropDownQuestion>(dropDownQuestion, Model.SurveyResponseDto))
+                break;
+            case SingleChoiceQuestion singleChoiceQuestion:
+                @await Html.PartialAsync("PartialQuestionViews/_SingleChoiceQuestion", new QuestionSurveyPair<SingleChoiceQuestion>(singleChoiceQuestion, Model.SurveyResponseDto))
+                break;
+        }
+    }
+    <input type="submit" class="quiz-submit" value="Submit">
+</form>
+</body>

@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --green-gradient: linear-gradient(90deg, #2c8a6f, #2aaf2a);
+    --hover-gradient: linear-gradient(90deg, #37a388, #32CD32);
+    --clicked: linear-gradient(90deg, #3fbe89, #1bd69e);
+    --turqoise-green: #3fbe89;
+    --border-color: #ddd;
+    --text-color: #222;
+}
+
+.quiz-form {
+    max-width: 850px;
+    background: white;
+    padding: 20px;
+    margin: 0 auto;
+    width: 750px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quiz-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c8a6f;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.quiz-question {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+
+.quiz-rating-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.rating-btn {
+    border: none;
+    background: var(--green-gradient);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+}
+
+.rating-btn:hover {
+    background: var(--hover-gradient);
+}
+
+.rating-btn.active {
+    background: var(--clicked);
+    border: 2px solid #2c8a6f;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-option {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: white;
+}
+
+.quiz-option input {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #2aaf2a;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.quiz-option input:checked {
+    background: var(--green-gradient);
+    border: none;
+}
+
+.quiz-option:hover {
+    border-color: #2aaf2a;
+    transform: scale(1.02);
+}
+
+/* Checkboxes */
+.quiz-checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: white;
+    font-weight: 700;
+}
+
+.quiz-checkbox-label input {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #2aaf2a;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.quiz-checkbox-label input:checked {
+    background: var(--green-gradient);
+    border: none;
+    position: relative;
+}
+
+.quiz-checkbox-label input:checked::after {
+    content: "✔";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+}
+
+.quiz-checkbox-label:hover {
+    border-color: #2aaf2a;
+    transform: scale(1.02);
+}
+
+
+.quiz-dropdown {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    outline: none;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.quiz-dropdown:focus {
+    border-color: #2aaf2a;
+    transform: scale(1.02);
+}
+
+
+.quiz-textarea {
+    width: 90%;
+    max-width: 90%;
+    height: 100px;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    transition: 0.3s ease-in-out;
+    resize: none;
+    background: white;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 700;
+}
+
+/* On focus, apply a slight scale effect */
+.quiz-textarea:focus {
+    border-color: #2aaf2a;
+    transform: scale(1.02);
+}
+
+.quiz-textarea:focus-within {
+    border-color: #2aaf2a !important;
+    transform: scale(1.02);
+}
+/* Styling for checkboxes */
+.quiz-option input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #2aaf2a;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.quiz-option input[type="checkbox"]:checked {
+    background: var(--green-gradient);
+    border: none;
+    position: relative;
+}
+
+.quiz-option input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    left: 4px;
+    top: -2px;
+}
+
+/* Submit Button */
+.quiz-submit {
+    width: 100%;
+    background: var(--green-gradient);
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease-in-out;
+    margin-top: 20px;
+    font-size: large;
+}
+
+.quiz-submit:hover {
+    background: var(--hover-gradient);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .quiz-form {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .quiz-title {
+        font-size: 1.8rem;
+    }
+
+    .quiz-question {
+        font-size: 1.1rem;
+    }
+
+    .rating-btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .quiz-textarea {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .quiz-submit {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
