@@ -21,5 +21,15 @@ namespace nps.Services.Worker
         {
             return await _db.Workers.FirstOrDefaultAsync(worker => worker.Email == email);
         }
+
+        public bool PasswordMatch(string password, string db_password)
+        {
+            return password.Equals(db_password);
+        }
+
+        public bool PasswordMatchHASH(string password, string db_password)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, db_password);
+        }
     }
 }

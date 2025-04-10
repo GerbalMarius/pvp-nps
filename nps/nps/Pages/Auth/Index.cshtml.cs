@@ -2,12 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using nps.Models;
 using nps.Models.DTOS;
+using nps.Services.Worker;
 
 namespace nps.Pages.Auth;
 
 public class Index : PageModel
 {
+    private readonly ILogger<Index> _logger;
+    private readonly IWorkerService _workerService;
+
+    public Index(ILogger<Index> logger, IWorkerService workerService)
+    {
+        _logger = logger;
+        _workerService = workerService;
+    }
+
+
     private const string Errors = "ModelStateErrors";
     
     [BindProperty]
@@ -15,13 +27,6 @@ public class Index : PageModel
     
     [BindProperty]
     public RegisterInfo RegisterData { get; set; } = new();
-    
-    private readonly ILogger<Index> _logger;
-
-    public Index(ILogger<Index> logger)
-    {
-        _logger = logger;
-    }
     
     public IActionResult OnGet()
     {
@@ -32,7 +37,7 @@ public class Index : PageModel
         return Page();
     }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPost()
     {
         var formType = Request.Form["FormType"];
 
@@ -42,14 +47,21 @@ public class Index : PageModel
 
             if (!ModelState.IsValid)
             {
-                //patikrinti pasta, patikrinti salptazodis sutampa, bycrypt biblioteka, jei viskas tinka i main index, jei viskas ok i dashboard
                 TempData[Errors] = KeepErrors(ModelState);
                 return RedirectToPage("/Auth/Index", new { errorType = "Login" });
                 
             }
+            var user = await _workerService.GetByEmail(LoginData.Email);
+
+            if(user == null || !_workerService.PasswordMatch(LoginData.Password, user.Password) /*|| !_workerService.PasswordMatchHASH(LoginData.Password, user.Password)*/)
+            {
+                ModelState.AddModelError(string.Empty, "Wrong email or password");
+                TempData[Errors] = KeepErrors(ModelState);
+                return RedirectToPage("/Auth/Index", new { errorType = "Login" });
+            }
 
             TempData[Errors] = null;
-            return Page();
+            return RedirectToPage("/Dashboard/Index");
         }
 
         ClearModelStateIf(key => !key.Contains(nameof(RegisterData)));
