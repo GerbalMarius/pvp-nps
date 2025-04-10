@@ -5,6 +5,7 @@ using nps.Migrations.Data;
 using nps.Services.Order;
 using nps.Services.Question;
 using nps.Services.Survey;
+using nps.Services.Worker;
 
 namespace nps;
 
@@ -32,6 +33,7 @@ public class Program
         builder.Services.AddScoped<ISurveyService, SurveyService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IQuestionService, QuestionService>();
+        builder.Services.AddScoped<IWorkerService, WorkerService>();
         
 
 		var app = builder.Build();

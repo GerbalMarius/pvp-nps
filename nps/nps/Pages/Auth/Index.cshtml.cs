@@ -42,9 +42,10 @@ public class Index : PageModel
 
             if (!ModelState.IsValid)
             {
+                //patikrinti pasta, patikrinti salptazodis sutampa, bycrypt biblioteka, jei viskas tinka i main index, jei viskas ok i dashboard
                 TempData[Errors] = KeepErrors(ModelState);
                 return RedirectToPage("/Auth/Index", new { errorType = "Login" });
-               
+                
             }
 
             TempData[Errors] = null;
@@ -93,6 +94,6 @@ public class Index : PageModel
                 ModelState.AddModelError(error.Key, errorMessage);
             }
         }
-    }
-   
+    } 
+
 }
