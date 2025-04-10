@@ -14,31 +14,30 @@
 </head>
 <body onclick="shrinkNavBar('navbar')">
 <div class="d-flex" style="min-height: 100vh; min-width: 200vh; overflow-x: hidden">
-<div class="vertical-nav" id="navbar" onclick="stopClickPropagation()">
-    <button class="burger-btn" onclick="toggleNavBar('navbar')">
-        <img src="@Url.Content("~/burger-simple.svg")" alt="Menu" style="width: 30px; height: 30px;">
-    </button>
-    <a asp-page="/Dashboard/Orders" class="vertical-nav-item @CheckActivePage("/Dashboard/Orders")" style="color: var(--white-variant)">
-        <span class="nav-icon"><img src="@Url.Content("~/list-check.svg")" class="menu-img" alt="Orders"></span>
-        <span class="nav-text">Orders</span>
-    </a>
-    <a asp-page="/Dashboard/CreateSurvey" class="vertical-nav-item @CheckActivePage("/Dashboard/CreateSurvey")" style="color: var(--white-variant)">
-        <span class="nav-icon"><img src="@Url.Content("~/add-circle.svg")" alt="create" class="menu-img"></span>
-        <span class="nav-text">Create Survey</span>
-    </a>
-    <a asp-page="/Index" class="vertical-nav-item" style="color: var(--white-variant); position: relative;">
-        <span class="nav-icon"><img src="@Url.Content("~/exit.svg")" class="menu-img" alt="Exit"></span>
-        <span class="nav-text">Exit</span>
-    </a>
-</div>
-
-    <div class="d-flex flex-row flex-grow-1 w-300 px-4 py-3" style="overflow-x: auto;">
-        <main role="main" class="flex-grow-1">
-            @RenderBody()
-        </main>
+    <div class="vertical-nav" id="navbar" onclick="stopClickPropagation()">
+        <button class="burger-btn" onclick="toggleNavBar('navbar')">
+            <img src="@Url.Content("~/burger-simple.svg")" alt="Menu" style="width: 30px; height: 30px;">
+        </button>
+        <a asp-page="/Dashboard/Orders" class="vertical-nav-item @CheckActivePage("/Dashboard/Orders")" style="color: var(--white-variant)">
+            <span class="nav-icon"><img src="@Url.Content("~/list-check.svg")" class="menu-img" alt="Orders"></span>
+            <span class="nav-text">Orders</span>
+        </a>
+        <a asp-page="/Dashboard/CreateSurvey" class="vertical-nav-item @CheckActivePage("/Dashboard/CreateSurvey")" style="color: var(--white-variant)">
+            <span class="nav-icon"><img src="@Url.Content("~/add-circle.svg")" alt="create" class="menu-img"></span>
+            <span class="nav-text">Create Survey</span>
+        </a>
+        <a asp-page="/Index" class="vertical-nav-item" style="color: var(--white-variant); position: relative;">
+            <span class="nav-icon"><img src="@Url.Content("~/exit.svg")" class="menu-img" alt="Exit"></span>
+            <span class="nav-text">Exit</span>
+        </a>
     </div>
 
-
+<div class="d-flex flex-row flex-grow-1 w-300 px-4 py-3" style="overflow-x: auto;">
+    <main role="main" class="flex-grow-1">
+        @RenderBody()
+    </main>
+</div>
+</div>
 
 
 <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
