@@ -2,7 +2,7 @@
 
 namespace nps.Models.DTOS;
 
-public record SurveyDto
+public record SurveyResponseDto
 {
     public Dictionary<long, List<string>> CheckBoxAnswers { get; } = [];
     

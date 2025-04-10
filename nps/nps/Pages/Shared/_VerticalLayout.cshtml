@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="@Url.Content("~/css/quiz-styles.css")" asp-append-version="true">
 </head>
 <body onclick="shrinkNavBar('navbar')">
+<div class="d-flex" style="min-height: 100vh; min-width: 200vh; overflow-x: hidden">
 <div class="vertical-nav" id="navbar" onclick="stopClickPropagation()">
     <button class="burger-btn" onclick="toggleNavBar('navbar')">
         <img src="@Url.Content("~/burger-simple.svg")" alt="Menu" style="width: 30px; height: 30px;">
@@ -31,10 +32,11 @@
     </a>
 </div>
 
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
+    <div class="d-flex flex-row flex-grow-1 w-300 px-4 py-3" style="overflow-x: auto;">
+        <main role="main" class="flex-grow-1">
+            @RenderBody()
+        </main>
+    </div>
 </div>
 
 
@@ -48,10 +50,13 @@
 @await RenderSectionAsync("Scripts", required: false)
 
 @functions {
+
     string CheckActivePage(string routeName)
     {
         return ViewContext.RouteData.Values["Page"]?.ToString() == routeName ? "active" : "";
     }
+
 }
+
 </body>
 </html>

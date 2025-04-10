@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using nps.Models.DTOS;
 using nps.Models.SurveyQuestions;
 using nps.Services.Order;
@@ -30,11 +29,16 @@ public class CreateSurvey : PageModel
 
     public List<Question> ExistingQuestions { get; set; } = [];
 
-    public IEnumerable<string> OrderNumbers { get; set; } = [];
+    public IReadOnlyList<string> OrderNumbers { get; set; } = [];
+
+    public IReadOnlyList<SurveyView> AvailableSurveys { get; set; } = [];
 
     [BindProperty]
     [Required(ErrorMessage = "Order number must be selected")]
     public string OrderNumber { get; set; }
+    
+    [BindProperty]
+    public long? SurveyId { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -45,16 +49,28 @@ public class CreateSurvey : PageModel
     {
         await LoadData();
         
-        _logger.LogInformation("{SurveyForm}", SurveyForm);
-        return Page();
+        _logger.LogInformation("{survey}", SurveyForm);
+
+        if (SurveyId.HasValue)
+        {
+            await _surveyService.AssignSurveyForOrder(SurveyId.Value, OrderNumber);
+        }
+        else
+        {
+            await _surveyService.CreateSurveyForOrder(SurveyForm, OrderNumber);
+        }
+        
+        return RedirectToPage("CreateSurvey", new { OrderNumber, success = true });
     }
 
     private async Task LoadData()
     {
         OrderNumbers = (await _orderService.GetAllViews())
             .Where(order => !order.HasSurvey)
-            .Select(order => order.Number);
-        
+            .Select(order => order.Number).ToList();
+
         ExistingQuestions = await _questionService.GetAll();
+        
+        AvailableSurveys = await _surveyService.GetAll();
     }
 }

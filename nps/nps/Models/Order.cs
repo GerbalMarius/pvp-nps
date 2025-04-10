@@ -25,9 +25,8 @@ public sealed class Order
     [Required]
     public DateTime? DeliveryDate { get; set; }
 
-    [Column("has_survey")]
-    [Required]
-    public bool HasSurvey { get; set; } = false;
+    [NotMapped]
+    public bool HasSurvey  => SurveyId.HasValue;
     
     [Column("worker_id")]
     public long? WorkerId { get; set; }

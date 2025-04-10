@@ -11,9 +11,12 @@ public interface ISurveyService
      Task<Survey?> GetSurveyByOrderNumber(string orderNumber, bool readOnly = false);
      
      [Transactional]
-     Task<int> SaveSurveyResponses(SurveyDto responses);
+     Task<int> SaveSurveyResponses(SurveyResponseDto responses);
      
      [Transactional]
-     Task CreateSurvey(SurveyCreationDto survey);
+     Task CreateSurveyForOrder(SurveyCreationDto surveyCreatorData, string orderNumber);
 
+     Task<List<SurveyView>> GetAll();
+     
+     Task AssignSurveyForOrder(long surveyId, string orderNumber);
 }

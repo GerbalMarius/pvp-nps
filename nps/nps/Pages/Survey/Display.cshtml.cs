@@ -15,7 +15,7 @@ public class Display : PageModel
     public Models.SurveyQuestions.Survey? SurveyToDisplay { get; set; }
     
     [BindProperty]
-    public SurveyDto SurveyDto { get; set; } = new();
+    public SurveyResponseDto SurveyResponseDto { get; set; } = new();
 
     public Display(ILogger<Display> logger, ISurveyService surveyService)
     {
@@ -41,9 +41,9 @@ public class Display : PageModel
         
         SurveyToDisplay = await _surveyService.GetSurveyByOrderNumber(orderNumber);
         
-        _logger.LogWarning("{Survey}", SurveyDto);
+        _logger.LogWarning("{Survey}", SurveyResponseDto);
 
-        await _surveyService.SaveSurveyResponses(SurveyDto);
+        await _surveyService.SaveSurveyResponses(SurveyResponseDto);
 
 
         if (SurveyToDisplay == null)

@@ -13,10 +13,6 @@ public record QuestionDto
 
     public int? MaxOptions { get; init; }
     
-    public string Choices { get; init; } = string.Empty;
-
-    public List<string> ParsedChoices =>
-    [
-        ..Choices.Split(',').SelectIfPossible(str => !string.IsNullOrEmpty(str), str => str.Trim())
-    ];
+    public string? Choices { get; init; }
+    
 }
