@@ -34,19 +34,19 @@
         switch (question)
         {
             case RatingQuestion ratingQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_RatingQuestion", new QuestionSurveyPair<RatingQuestion>(ratingQuestion, Model.SurveyDto))
+                @await Html.PartialAsync("PartialQuestionViews/_RatingQuestion", new QuestionSurveyPair<RatingQuestion>(ratingQuestion, Model.SurveyResponseDto))
                 break;
             case TextQuestion textQuestion:
                 @await Html.PartialAsync("PartialQuestionViews/_TextQuestion", textQuestion)
                 break;
             case CheckBoxQuestion checkBoxQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_CheckBoxQuestion", new QuestionSurveyPair<CheckBoxQuestion>(checkBoxQuestion, Model.SurveyDto))
+                @await Html.PartialAsync("PartialQuestionViews/_CheckBoxQuestion", new QuestionSurveyPair<CheckBoxQuestion>(checkBoxQuestion, Model.SurveyResponseDto))
                 break;
             case DropDownQuestion dropDownQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_DropDownQuestion", new QuestionSurveyPair<DropDownQuestion>(dropDownQuestion, Model.SurveyDto))
+                @await Html.PartialAsync("PartialQuestionViews/_DropDownQuestion", new QuestionSurveyPair<DropDownQuestion>(dropDownQuestion, Model.SurveyResponseDto))
                 break;
             case SingleChoiceQuestion singleChoiceQuestion:
-                @await Html.PartialAsync("PartialQuestionViews/_SingleChoiceQuestion", new QuestionSurveyPair<SingleChoiceQuestion>(singleChoiceQuestion, Model.SurveyDto))
+                @await Html.PartialAsync("PartialQuestionViews/_SingleChoiceQuestion", new QuestionSurveyPair<SingleChoiceQuestion>(singleChoiceQuestion, Model.SurveyResponseDto))
                 break;
         }
     }

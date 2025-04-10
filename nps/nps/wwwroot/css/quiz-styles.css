@@ -10,11 +10,11 @@
 }
 
 .quiz-form {
-    max-width: 800px;
+    max-width: 850px;
     background: white;
     padding: 20px;
     margin: 0 auto;
-    width: 700px;
+    width: 750px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;

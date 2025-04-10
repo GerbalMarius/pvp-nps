@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using nps.Models;
+using nps.Models.DTOS;
 
 namespace nps;
 
 public static class Utils
 {
+    private static readonly char[] Delimiters = [',', ';', '.', ' ', '?', ':', '!' , '\t', '\r', '\n'];
+
     /// <summary>
     /// Calculates nps score based on the formula = %promoters - %detractors,
     /// if nps score needs to be extracted within a given timeframe, filter the corresponding surveys by Datetime property 'TakenAt'.
@@ -36,5 +39,15 @@ public static class Utils
         double detractorPercentage = (double)detractors / totalResponses * 100;
 
         return Math.Round(promoterPercentage - detractorPercentage);
+    }
+    
+    public static List<string> ExtractChoices(QuestionDto questionDto)
+    {
+        
+       return string.IsNullOrWhiteSpace(questionDto.Choices) ? 
+           [] : 
+           [
+               ..questionDto.Choices.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+           ];
     }
 }

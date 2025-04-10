@@ -1,8 +1,115 @@
 @page
-@model nps.Pages.Dashboard.CreateSurvey
+@using System.Text
+@using System.Text.Json
+@using nps.Models.SurveyQuestions
+@model CreateSurvey
 
 @{
     Layout = "Shared/_VerticalLayout";
-    ViewData["Title"] = "Survey create";
+    ViewData["Title"] = "Survey Add";
+    
+    string serializedData = JsonSerializer.Serialize(Model.ExistingQuestions
+        .Where(q => q is not RatingQuestion)
+        .Select(q => new { id = q.Id, text = q.QuestionText }));
+
+    string encodedData = Convert.ToBase64String(Encoding.UTF8.GetBytes(serializedData));
+
+    var success = Request.Query["success"];
 }
-<h1 class="text text-center">Survey creation lol</h1>
+<h1 class="survey-title">Add a survey to an order</h1>
+
+@if (!string.IsNullOrEmpty(success))
+{
+    <div class="alert alert-success">
+        Survey for order @Request.Query["OrderNumber"] has been assigned successfully!
+    </div>
+}
+<div class="form-group mb-3 d-flex align-items-center justify-content-between">
+    <label style="position: relative; left: 90rem;">Use Existing Survey</label>
+    <label class="switch mb-0">
+        <input type="checkbox" id="useExistingSurveyToggle" onchange="toggleSurveyMode()" />
+        <span class="slider round"></span>
+    </label>
+</div>
+
+<div id="existing-survey-section" class="mb-3 d-none">
+    <form method="post" class="survey-form">
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="existingSurveyId" class="form-label">Select Existing Survey</label>
+            <select asp-for="SurveyId" id="existingSurveyId" class="form-select">
+                <option value="" disabled selected>Select a survey...</option>
+                @foreach (var survey in Model.AvailableSurveys)
+                {
+                    <option value="@survey.Id">@survey.Name : @survey.CreatedAt</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="OrderNumber" class="form-label">Select Order Number</label>
+            <select class="form-select" asp-for="OrderNumber">
+                @if (Model.OrderNumbers.Count == 0)
+                {
+                    <option value="" disabled selected class="text-danger"> No available orders.</option>
+                }
+                else
+                {
+                    <option value="" disabled selected>Select an order...</option>
+                    foreach (var number in Model.OrderNumbers)
+                    {
+                        <option value="@number">@number</option>
+                    }
+                }
+            </select>
+            <br/>
+            <button type="submit" class="btn btn-success">Create Survey</button>
+        </div>
+    </form>
+</div>
+
+<div id="new-survey-section">
+    <form method="post" class="survey-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
+        <div class="form-group">
+            <label asp-for="SurveyForm.Name" class="form-label">Survey Name</label>
+            <input asp-for="SurveyForm.Name" class="form-control" maxlength="100"/>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="OrderNumber" class="form-label">Select Order</label>
+            <select class="form-select" asp-for="OrderNumber" id="OrderNumber">
+                @if (Model.OrderNumbers.Count == 0)
+                {
+                    <option value="" disabled selected class="text-danger"> No available orders.</option>
+                }
+                else
+                {
+                    <option value="" disabled selected>Select an order...</option>
+                    foreach (var number in Model.OrderNumbers)
+                    {
+                        <option value="@number">@number</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <h4 class="section-title">Questions</h4>
+        <div id="questions-container"></div>
+
+        <button type="button" class="quiz-submit" onclick="addQuestion()">+ Add Question
+        </button>
+        <br/>
+        <button type="submit" class="btn btn-success">Create Survey</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+
+    <script>
+        const dataHash = '@encodedData';
+    </script>
+}

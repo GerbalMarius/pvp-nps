@@ -12,17 +12,13 @@ public sealed class Survey
 
     [Column("survey_name")]
     [Required, MaxLength(100)]
-    public string? Name { get; set; }
+    public required string Name { get; set; }
     
 
     [Column("created_at"), Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime CreatedAt { get; set; }
     
-    [Column("taken_at")]
-    public DateTime? TakenAt { get; set; }
-
-
     public ICollection<Order> Orders { get; set; } = [];
 
     public ICollection<Question> Questions { get; set; } = [];

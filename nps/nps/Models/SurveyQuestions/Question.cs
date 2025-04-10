@@ -13,7 +13,7 @@ public abstract class Question
     
     [Column("question_text"), Required]
     [MaxLength(120)]
-    public string? QuestionText { get; set; }
+    public required string QuestionText { get; set; }
 
     public ICollection<Response> Responses { get; set; } = [];
 

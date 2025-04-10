@@ -1,0 +1,164 @@
+﻿:root {
+    --form-border-color: #ddd;
+    --form-highlight: #2aaf2a;
+    --form-shadow: rgba(0, 0, 0, 0.1);
+    --form-gradient: linear-gradient(90deg, #2c8a6f, #2aaf2a);
+    --form-hover-gradient: linear-gradient(90deg, #37a388, #32CD32);
+    --red-gradient: linear-gradient(90deg, #ff0000, firebrick);
+    --red-hover-gradient: linear-gradient(90deg, #ff4d4d, #b22222);
+}
+
+.survey-form {
+    background: white;
+    padding: 2rem;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px var(--form-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-sizing: border-box;
+}
+
+.survey-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c8a6f;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--form-highlight);
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    font-weight: 700;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid var(--form-border-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--form-highlight);
+    box-shadow: 0 0 0 0.2rem rgba(42, 175, 42, 0.15);
+    transform: scale(1.02);
+    outline: none;
+}
+
+.btn-success {
+    background: var(--form-gradient);
+    color: white;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease-in-out;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+
+.btn-success:hover {
+    background: var(--form-hover-gradient);
+    transform: scale(1.05);
+}
+
+.btn-red {
+    background: var(--red-gradient);
+    color: white;
+    font-weight: 700;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease-in-out;
+    font-size: 0.9rem;
+    width: 30%;
+}
+
+.btn-red:hover {
+    background: var(--red-hover-gradient);
+    transform: scale(1.05);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background: linear-gradient(to right, #dc3545, #c82333);
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background: linear-gradient(to right, #28a745, #218838);
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+@media (max-width: 600px) {
+    .survey-form {
+        padding: 1rem;
+        width: 95%;
+    }
+
+    .survey-title {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .btn-success {
+        font-size: 1rem;
+        padding: 10px;
+    }
+    .btn-red {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}

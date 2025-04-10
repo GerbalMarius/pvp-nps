@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Storage;
 using nps.Migrations.Data;
 using nps.Models;
 using nps.Models.DTOS;
+using nps.Models.SurveyQuestions;
+
 
 namespace nps.Services.Survey;
 
@@ -28,19 +30,127 @@ public sealed class SurveyService : ISurveyService
 
     public async Task<Models.SurveyQuestions.Survey?> GetSurveyByOrderNumber(string orderNumber, bool readOnly = false)
     {
-        var result =  _dbContext.Surveys
-            .Include(s => s.Orders) 
+        var result =   _dbContext.Surveys
+            .Include(s => s.Orders)
             .Include(s => s.Questions)
             .ThenInclude(q => q.Choices)
-            .Where(s => !s.TakenAt.HasValue)
-            .Where(s => s.Orders.Any(o => o.Number == orderNumber))
+            .Where(s => s.Orders.Any(o => o.Number == orderNumber && o.SurveyId.HasValue))
             .AsSplitQuery();
 
-        
         return readOnly ? await result.AsNoTracking().SingleOrDefaultAsync() : await result.SingleOrDefaultAsync();
     }
+    
+    public Task<List<SurveyView>> GetAll()
+    {
+        return _dbContext.Surveys.Select(survey => new SurveyView(survey.Id, survey.Name, survey.CreatedAt))
+                                 .ToListAsync();
+    }
 
-    public async Task<int> SaveSurveyResponses(SurveyDto responses)
+    public async Task AssignSurveyForOrder(long surveyId, string orderNumber)
+    {
+        var survey = await _dbContext.Surveys.FindAsync(surveyId);
+        if (survey is null)
+        {
+            throw new Exception($"Survey {surveyId} not found in database.");
+        }
+        
+        var order = await _dbContext.Orders.SingleAsync(order => order.Number == orderNumber);
+        
+        survey.Orders.Add(order);
+        order.SurveyId =  survey.Id;
+       await _dbContext.SaveChangesAsync();
+    }
+
+
+    [Transactional]
+    public async Task CreateSurveyForOrder(SurveyCreationDto surveyCreatorData, string orderNumber)
+    {
+        await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+        try
+        {
+            var order = await _dbContext.Orders.SingleAsync(o => o.Number == orderNumber);
+
+            var survey = new Models.SurveyQuestions.Survey
+            {
+                CreatedAt = DateTime.Now,
+                Name = surveyCreatorData.Name
+            };
+
+            foreach (var questionData in surveyCreatorData.Questions)
+            {
+                Models.SurveyQuestions.Question question;
+                if (questionData is { ExistingQuestionId: not null, UseExisting: true })
+                {
+                    question = (await _dbContext.Questions.FindAsync(questionData.ExistingQuestionId.Value))!;
+                }
+                else
+                {
+                   question =  DetermineQuestionType(questionData);
+                   _dbContext.Questions.Add(question);
+                }
+                survey.Questions.Add(question);
+                
+            }
+            _dbContext.Surveys.Add(survey);
+            
+            survey.Orders.Add(order);
+            order.SurveyId = survey.Id;
+            
+            await _dbContext.SaveChangesAsync();
+            
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw new Exception("Unable to assign survey to an order.");
+        }
+        
+    }
+
+    private static Models.SurveyQuestions.Question DetermineQuestionType(QuestionDto q)
+    {
+        return q.Type switch
+        {
+            QuestionType.SingleChoice => new SingleChoiceQuestion
+            {
+                QuestionText = q.QuestionText!,
+                MaxOptions = q.MaxOptions ?? 2,
+                Choices = Utils.ExtractChoices(q).Select(ch => new AnswerChoice
+                {
+                    Text = ch
+                }).ToList()
+            },
+            QuestionType.Rating => new RatingQuestion
+            {
+                QuestionText = q.QuestionText!
+            },
+            QuestionType.DropDown => new DropDownQuestion
+            {
+                QuestionText = q.QuestionText!,
+                Choices = Utils.ExtractChoices(q).Select(ch => new AnswerChoice
+                {
+                    Text = ch
+                }).ToList()
+            },
+            QuestionType.Checkbox => new CheckBoxQuestion
+            {
+                QuestionText = q.QuestionText!,
+                Choices = Utils.ExtractChoices(q).Select(ch => new AnswerChoice
+                {
+                    Text = ch
+                }).ToList()
+            },
+            QuestionType.Text => new TextQuestion
+            {
+                QuestionText = q.QuestionText!
+            },
+            _ => throw new Exception("Unable to determine question type.")
+        };
+    }
+
+    [Transactional]
+    public async Task<int> SaveSurveyResponses(SurveyResponseDto responses)
     {
         await using var transaction = await _dbContext.Database.BeginTransactionAsync();
         List<Response> responsesToSave = [];  
@@ -73,7 +183,8 @@ public sealed class SurveyService : ISurveyService
         }
     }
 
-    private static void SaveCheckBoxResponses(SurveyDto responses, 
+
+    private static void SaveCheckBoxResponses(SurveyResponseDto responses, 
         List<Response> responsesToSave,
         List<ResponseOption> optionsToSave, 
         DateTime timeStamp)
@@ -96,7 +207,8 @@ public sealed class SurveyService : ISurveyService
         }
     }
 
-    private static void SaveDropDownResponses(SurveyDto responses, 
+
+    private static void SaveDropDownResponses(SurveyResponseDto responses, 
         List<Response> responsesToSave, 
         DateTime timeStamp)
     {
@@ -114,7 +226,8 @@ public sealed class SurveyService : ISurveyService
 
     }
 
-    private static void SaveRatingResponses(SurveyDto responses, 
+
+    private static void SaveRatingResponses(SurveyResponseDto responses, 
         List<Response> responsesToSave, 
         DateTime timeStamp)
     {
@@ -130,7 +243,8 @@ public sealed class SurveyService : ISurveyService
         }
     }
 
-    private static void SaveSingleChoiceResponses(SurveyDto responses, List<Response> responsesToSave, DateTime timeStamp)
+
+    private static void SaveSingleChoiceResponses(SurveyResponseDto responses, List<Response> responsesToSave, DateTime timeStamp)
     {
         foreach (var (questionId, choice) in responses.SingleChoiceAnswers)
         {

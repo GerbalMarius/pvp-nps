@@ -2,5 +2,6 @@
 
 namespace nps.Models.DTOS;
 
-public record QuestionSurveyPair<TQuestion>(TQuestion Question, SurveyDto Dto)
+
+public record QuestionSurveyPair<TQuestion>(TQuestion Question, SurveyResponseDto ResponseDto)
     where TQuestion : Question;
