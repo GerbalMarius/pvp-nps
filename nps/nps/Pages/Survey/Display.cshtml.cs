@@ -45,7 +45,6 @@ public class Display : PageModel
 
         await _surveyService.SaveSurveyResponses(SurveyResponseDto);
 
-
         if (SurveyToDisplay == null)
         {
             return NotFound();

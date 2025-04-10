@@ -1,3 +1,4 @@
+
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ namespace nps.Pages.Dashboard;
 
 public class CreateSurvey : PageModel
 {
+
     private readonly ILogger<CreateSurvey> _logger;
     private readonly IOrderService _orderService;
     private readonly IQuestionService _questionService;
@@ -72,5 +74,5 @@ public class CreateSurvey : PageModel
         ExistingQuestions = await _questionService.GetAll();
         
         AvailableSurveys = await _surveyService.GetAll();
-    }
+     }
 }
