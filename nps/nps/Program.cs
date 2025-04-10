@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using nps.Migrations.Data;
 using nps.Services.Order;
 using nps.Services.Question;
 using nps.Services.Survey;
+using nps.Services.Worker;
 
 namespace nps;
 
@@ -31,9 +33,10 @@ public class Program
         builder.Services.AddScoped<ISurveyService, SurveyService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IQuestionService, QuestionService>();
+        builder.Services.AddScoped<IWorkerService, WorkerService>();
         
 
-        var app = builder.Build();
+		var app = builder.Build();
         
         
 
@@ -43,7 +46,7 @@ public class Program
             
             app.UseHsts();
         }
-        app.UseSession();//enabling usage of session store.
+        app.UseSession();
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
@@ -52,8 +55,7 @@ public class Program
 
         app.UseAuthorization();
 
-        app.MapRazorPages();
-
+		app.MapRazorPages();
         app.Run();
     }
 }
