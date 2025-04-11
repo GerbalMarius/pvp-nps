@@ -24,12 +24,12 @@
         Survey for order @Request.Query["OrderNumber"] has been assigned successfully!
     </div>
 }
-<div class="form-group mb-3 d-flex align-items-center justify-content-between">
-    <label style="position: relative; left: 90rem;">Use Existing Survey</label>
+<div class="form-group mb-3 d-flex align-items-center gap-2">
     <label class="switch mb-0">
         <input type="checkbox" id="useExistingSurveyToggle" onchange="toggleSurveyMode()" />
         <span class="slider round"></span>
     </label>
+    <span class="section-title mb-0">Use existing survey</span>
 </div>
 
 <div id="existing-survey-section" class="mb-3 d-none">
