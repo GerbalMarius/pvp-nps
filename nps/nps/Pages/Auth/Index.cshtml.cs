@@ -53,9 +53,15 @@ public class Index : PageModel
             }
             var user = await _workerService.GetByEmail(LoginData.Email);
 
-            if(user == null || !_workerService.PasswordMatch(LoginData.Password, user.Password) /*|| !_workerService.PasswordMatchHASH(LoginData.Password, user.Password)*/)
+            if(user == null)
             {
-                ModelState.AddModelError(string.Empty, "Wrong email or password");
+                ModelState.AddModelError(string.Empty, "No such user");
+                return Page();
+            }
+
+            if (!_workerService.PasswordMatch(LoginData.Password, user.Password))
+            {
+                ModelState.AddModelError(string.Empty, "Wrong password");
                 TempData[Errors] = KeepErrors(ModelState);
                 return RedirectToPage("/Auth/Index", new { errorType = "Login" });
             }
